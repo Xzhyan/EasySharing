@@ -3,7 +3,7 @@
 {% block content %}
 <div class="flex items-center justify-center">
     <!-- Card de login do sistema -->
-    <div class="w-full max-w-md bg-zinc-800 rounded-md m-2 p-2 text-gray-400 shadow-md">
+    <div class="w-full max-w-md bg-zinc-800 rounded-md mt-20 p-2 text-gray-400 shadow-md">
         <form method="POST" enctype="multipart/form-data" name="form_type" value="login_form"
             class="flex flex-col gap-1"
         >
@@ -11,16 +11,10 @@
             <h1 class="font-bold text-center">Acesso ao EasySharing</h1>
 
             <label for="username">Usuário</label>
-            <input type="text" name="username" id="username"
-                placeholder="Nome de usuário" required
-                class="bg-zinc-900 rounded-md p-1 w-full outline-none hover:bg-zinc-700 transition shadow-md"
-            >
+            {{ form.username }}
 
             <label for="password">Senha</label>
-            <input type="password" name="password" id="password"
-                placeholder="Senha de acesso" required
-                class="bg-zinc-900 rounded-md p-1 w-full outline-none hover:bg-zinc-700 transition shadow-md"
-            >
+            {{ form.password }}
 
             <button type="submit"
                 class="w-[150px] bg-green-900 hover:bg-green-700 p-2 rounded-md m-auto cursor-pointer transition text-white shadow-md"
