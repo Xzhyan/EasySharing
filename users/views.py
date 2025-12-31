@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 # Auth, login e register
 from django.contrib.auth import authenticate, login
@@ -16,7 +16,8 @@ def user_login(request):
             
             if user is not None:
                 login(request, user)
-                print('logado')
+                print('Logado com sucesso!')
+                return redirect('storage/main')
 
             else:
                 print("Problema no login ou usuário/senha incorretos!")
