@@ -3,12 +3,12 @@
 {% block content %}
 <div class="flex items-center justify-center">
     <!-- Card de login do sistema -->
-    <div class="w-full max-w-md bg-zinc-800 rounded-md mt-20 p-2 text-gray-400 shadow-md">
+    <div class="w-full max-w-md bg-stone-900 rounded-md mt-20 p-2 text-gray-400 shadow-md">
         <form method="POST" enctype="multipart/form-data" name="form_type" value="login_form"
-            class="flex flex-col gap-1"
+            class="flex flex-col gap-2"
         >
             {% csrf_token %}
-            <h1 class="font-bold text-center">Acesso ao EasySharing</h1>
+            <h1 class="font-bold text-center mb-4">Faça login para acessar o Painel do EasySharing</h1>
 
             <label for="username">Usuário</label>
             {{ form.username }}
@@ -16,11 +16,15 @@
             <label for="password">Senha</label>
             {{ form.password }}
 
+            <a href="#" class="text-sm text-blue-400">Esqueceu sua senha?</a>
+
             <button type="submit"
-                class="w-[150px] bg-green-900 hover:bg-green-700 p-2 rounded-md m-auto cursor-pointer transition text-white shadow-md"
+                class="w-[150px] bg-green-900 hover:bg-green-700 p-2 rounded-md m-auto cursor-pointer transition text-white shadow-md mt-4 mb-4"
             >
                 Acessar
             </button>
+
+            <a href="#" class="text-sm text-red-500">Não possuí login? Solicite seu acesso aqui.</a>
         </form>
     </div>
 </div>
