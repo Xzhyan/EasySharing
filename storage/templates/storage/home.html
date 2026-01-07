@@ -34,7 +34,6 @@
     <div class="col-span-6 flex flex-col bg-stone-800 gap-2 p-2">
         <span class="text-sm">storage\main\</span>
 
-        <!-- Ações e barra de pesquisa -->
         <div class="bg-stone-900 grid grid-cols-2 rounded-md shadow-md">
             <!-- Barra de pesquisa -->
             <div class="p-2">
@@ -87,23 +86,31 @@
         </div>
 
         <!-- Tabela de pastas e arquivos -->
-        <div class="bg-stone-700 rounded-md shadow-md">
+        <div class="bg-stone-700 rounded-md shadow-md p-1">
             <table class="w-full text-center shadow-md">
                 <thead class="bg-stone-950 text-xs">
                     <tr>
-                        <th>Título</th>
-                        <th>Proprietário</th>
-                        <th>Modificado em</th>
-                        <th>Tamanho</th>
+                        <th class="px-2 py-1">
+                            <input type="checkbox" id="select-all"
+                                class="cursor-pointer">
+                        </th>
+                        <th class="px-2 py-1">Título</th>
+                        <th class="px-2 py-1">Proprietário</th>
+                        <th class="px-2 py-1">Modificado em</th>
+                        <th class="px-2 py-1">Tamanho</th>
                     </tr>
                 </thead>
-                <tbody class="bg-stone-600 hover:bg-stone-700 transition">
+                <tbody class="bg-stone-600 text-white">
                     {% for archive in archives %}
-                        <tr>
-                            <td>{{ archive.file_name }}</td>
-                            <td>{{ archive.owner_id }}</td>
-                            <td>{{ archive.modified_at }}</td>
-                            <td>{{ archive.size }}</td>
+                        <tr class="shadow-md hover:bg-stone-500 cursor-pointer transition">
+                            <th class="px-2 py-1">
+                                <input type="checkbox" name="file-checkbox" value="{{ archive.id }}"
+                                    class="cursor-pointer">
+                            </th>
+                            <td class="px-2 py-1">{{ archive.file_name }}</td>
+                            <td class="px-2 py-1">{{ archive.owner_id }}</td>
+                            <td class="px-2 py-1">{{ archive.modified_at }}</td>
+                            <td class="px-2 py-1">{{ archive.size }}</td>
                         </tr>
                     {% endfor %}
                 </tbody>
