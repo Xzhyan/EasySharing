@@ -91,21 +91,21 @@
             <table class="w-full text-center shadow-md">
                 <thead class="bg-stone-950 text-xs">
                     <tr>
-                        <th>nome</th>
-                        <th>nome</th>
-                        <th>nome</th>
-                        <th>nome</th>
-                        <th>nome</th>
+                        <th>Título</th>
+                        <th>Proprietário</th>
+                        <th>Modificado em</th>
+                        <th>Tamanho</th>
                     </tr>
                 </thead>
                 <tbody class="bg-stone-600 hover:bg-stone-700 transition">
-                    <tr>
-                        <td>natus</td>
-                        <td>natus</td>
-                        <td>natus</td>
-                        <td>natus</td>
-                        <td>natus</td>
-                    </tr>
+                    {% for archive in archives %}
+                        <tr>
+                            <td>{{ archive.file_name }}</td>
+                            <td>{{ archive.owner_id }}</td>
+                            <td>{{ archive.modified_at }}</td>
+                            <td>{{ archive.size }}</td>
+                        </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

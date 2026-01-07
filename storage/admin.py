@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Team, Folder, Archive
 
-# Register your models here.
+admin.site.register(Team)
+admin.site.register(Folder)
+admin.site.register(Archive)
