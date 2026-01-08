@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 
@@ -8,6 +8,7 @@ from .models import Archive
 # Usados no tratamento dos arquivos
 import io, zipfile
 from django.http import HttpResponse, FileResponse
+from django.shortcuts import get_object_or_404
 
 # User model
 User = get_user_model()
@@ -37,30 +38,27 @@ def upload_files(request):
                 save_file.owner_id = file_owner
                 save_file.save()
                 messages.success(request, "Arquivo(s) enviado(s) com sucesso!")
-                return
         
         except Exception as e:
             messages.error(request, e)
-            return
 
 def download_files(request):
     file_list = request.POST.getlist('file-checkbox')
 
     if not file_list:
-        messages.error(request, "Nenhum arquivo foi selecionado!")
+        messages.error(request, "Por favor, selecione um ou mais arquivos!")
         return
+    
+    file_objs = Archive.objects.filter(id__in=file_list)
 
-    if len(file_list) > 1:
-        buffer = io.BytesID()
+    try:
+        file_obj = file_objs[0]
+        file_path = file_obj.archive.path
+        file_response = open(file_path, 'rb')
+        return FileResponse(file_response, as_attachment=True, filename=file_obj.archive.name)
 
-        try:
-            with zipfile.ZipFile(buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
-                for file_obj in file_list:
-                    save_file = file_obj.file_name or f"file_{file_obj.id}.ext"
-                    zip_file.write(file_obj.file.path, arcname=save_file)
-
-        except Exception as e:
-            print(e)
+    except FileNotFoundError:
+        raise messages.error(request, "Arquivo(s) inexistente(s)!")
 
 # ------- Views -------
 
@@ -69,9 +67,6 @@ def main_storage(request):
     Pra não confundir, usei 'archive' para os arquivos listados no frotend
     e 'file_list' para a lista de arquivos que vão ser tratados como upload, delete, download e outros.
     """
-
-    archives = Archive.objects.all()
-
     if request.method == 'POST':
         form_type = request.POST.get('form_type')
 
@@ -81,4 +76,7 @@ def main_storage(request):
         elif form_type == 'download_form':
             download_files(request)
 
+        return redirect('main')
+
+    archives = Archive.objects.all()
     return render(request, 'storage/home.html', {'archives': archives})

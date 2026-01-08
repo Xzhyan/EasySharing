@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% block title %} FTP - Drive {% endblock %}
+{% block title %} EasySharing - Home {% endblock %}
 {% block content %}
 <div class="w-full grid grid-cols-8 gap-1">
     <!-- Menu de controle do sistema -->
@@ -32,90 +32,93 @@
 
     <!-- Caixa de pastas e arquivos -->
     <div class="col-span-6 flex flex-col bg-stone-800 gap-2 p-2">
-        <span class="text-sm">storage\main\</span>
+        <form method="POST">
+            {% csrf_token %}
+            <span class="text-sm">storage\main\</span>
 
-        <div class="bg-stone-900 grid grid-cols-2 rounded-md shadow-md">
-            <!-- Barra de pesquisa -->
-            <div class="p-2">
-                <input id="search-files" type="text" placeholder="Pesquisar por arquivo ou documento..."
-                    class="w-full outline-none hover:bg-stone-700 px-2 py-2 rounded-sm shadow-md transition">
+            <div class="bg-stone-900 grid grid-cols-2 rounded-md shadow-md">
+                <!-- Barra de pesquisa -->
+                <div class="p-2">
+                    <input id="search-files" type="text" placeholder="Pesquisar por arquivo ou documento..."
+                        class="w-full outline-none hover:bg-stone-700 px-2 py-2 rounded-sm shadow-md transition">
+                </div>
+
+                <!-- Ações do sistema -->
+                <div class="p-2">
+                    <!-- Download -->
+                    <button type="submit" name="form_type" value="download_form"
+                        class="bg-blue-800 rounded-md hover:bg-blue-600 cursor-pointer transition text-white p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path d="M12 3v12" />
+                            <path d="M8 11l4 4 4-4" />
+                            <path d="M5 21h14" />
+                        </svg>
+                    </button>
+
+                    <!-- Deletar -->
+                    <button type="submit" name="form_type" value="delete_form"
+                        class="bg-red-800 rounded-md hover:bg-red-600 cursor-pointer transition text-white p-2">
+                        <svg xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path d="M3 6h18" />
+                            <path d="M8 6V4h8v2" />
+                            <path d="M6 6l1 14h10l1-14" />
+                            <path d="M10 11v6" />
+                            <path d="M14 11v6" />
+                        </svg>
+                    </button>
+                </div>
             </div>
 
-            <!-- Ações do sistema -->
-            <div class="p-2">
-                <!-- Download -->
-                <button type="submit" name="form_type" value="download_form"
-                    class="bg-blue-800 rounded-md hover:bg-blue-600 cursor-pointer transition text-white p-2">
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    >
-                        <path d="M12 3v12" />
-                        <path d="M8 11l4 4 4-4" />
-                        <path d="M5 21h14" />
-                    </svg>
-                </button>
-
-                <!-- Deletar -->
-                <button type="submit" name="form_type" value="delete_form"
-                    class="bg-red-800 rounded-md hover:bg-red-600 cursor-pointer transition text-white p-2">
-                    <svg xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    >
-                        <path d="M3 6h18" />
-                        <path d="M8 6V4h8v2" />
-                        <path d="M6 6l1 14h10l1-14" />
-                        <path d="M10 11v6" />
-                        <path d="M14 11v6" />
-                    </svg>
-                </button>
-            </div>
-        </div>
-
-        <!-- Tabela de pastas e arquivos -->
-        <div class="bg-stone-700 rounded-md shadow-md p-1">
-            <table class="w-full text-center shadow-md">
-                <thead class="bg-stone-950 text-xs">
-                    <tr>
-                        <th class="px-2 py-1">
-                            <input type="checkbox" id="select-all"
-                                class="cursor-pointer">
-                        </th>
-                        <th class="px-2 py-1">Título</th>
-                        <th class="px-2 py-1">Proprietário</th>
-                        <th class="px-2 py-1">Modificado em</th>
-                        <th class="px-2 py-1">Tamanho</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-stone-600 text-white">
-                    {% for archive in archives %}
-                        <tr class="shadow-md hover:bg-stone-500 cursor-pointer transition">
+            <!-- Tabela de pastas e arquivos -->
+            <div class="bg-stone-700 rounded-md shadow-md p-1">
+                <table class="w-full text-center shadow-md">
+                    <thead class="bg-stone-950 text-xs">
+                        <tr>
                             <th class="px-2 py-1">
-                                <input type="checkbox" name="file-checkbox" value="{{ archive.id }}"
+                                <input type="checkbox" id="select-all"
                                     class="cursor-pointer">
                             </th>
-                            <td class="px-2 py-1">{{ archive.file_name }}</td>
-                            <td class="px-2 py-1">{{ archive.owner_id }}</td>
-                            <td class="px-2 py-1">{{ archive.modified_at }}</td>
-                            <td class="px-2 py-1">{{ archive.size }}</td>
+                            <th class="px-2 py-1">Título</th>
+                            <th class="px-2 py-1">Proprietário</th>
+                            <th class="px-2 py-1">Modificado em</th>
+                            <th class="px-2 py-1">Tamanho</th>
                         </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
+                    </thead>
+                    <tbody class="bg-stone-600 text-white">
+                        {% for archive in archives %}
+                            <tr class="shadow-md hover:bg-stone-500 cursor-pointer transition">
+                                <th class="px-2 py-1">
+                                    <input type="checkbox" name="file-checkbox" value="{{ archive.id }}"
+                                        class="cursor-pointer">
+                                </th>
+                                <td class="px-2 py-1">{{ archive.file_name }}</td>
+                                <td class="px-2 py-1">{{ archive.owner_id }}</td>
+                                <td class="px-2 py-1">{{ archive.modified_at }}</td>
+                                <td class="px-2 py-1">{{ archive.size }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </form>
     </div>
 </div>
 {% endblock %}
