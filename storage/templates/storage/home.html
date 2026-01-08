@@ -8,7 +8,7 @@
         
         <!-- Upload de arquivos -->
         <div class="bg-stone-900 shadow-md rounded-sm m-2">
-            <form method="POST" enctype="multipart/form-data" class="flex flex-col p-2 gap-2">
+            <form method="POST" enctype="multipart/form-data" action="{% url 'actions' %}" class="flex flex-col p-2 gap-2">
                 {% csrf_token %}
 
                 <label for="file_input"
@@ -21,7 +21,7 @@
 
                 <input id="file_input" type="file" name="file_list" multiple onchange="" class="hidden">
 
-                <button name="form_type" value="upload_form" type="submit"
+                <button name="action" value="upload" type="submit"
                     class="bg-blue-800 hover:bg-blue-600 px-4 py-2 text-white m-auto transition rounded-sm shadow-md cursor-pointer"
                 >
                     Enviar
@@ -32,7 +32,7 @@
 
     <!-- Caixa de pastas e arquivos -->
     <div class="col-span-6 flex flex-col bg-stone-800 gap-2 p-2">
-        <form method="POST">
+        <form method="POST" action="{% url 'actions' %}">
             {% csrf_token %}
             <span class="text-sm">storage\main\</span>
 
@@ -46,7 +46,7 @@
                 <!-- Ações do sistema -->
                 <div class="p-2">
                     <!-- Download -->
-                    <button type="submit" name="form_type" value="download_form"
+                    <button type="submit" name="action" value="download"
                         class="bg-blue-800 rounded-md hover:bg-blue-600 cursor-pointer transition text-white p-2">
                         <svg xmlns="http://www.w3.org/2000/svg"
                             width="24"
@@ -65,7 +65,7 @@
                     </button>
 
                     <!-- Deletar -->
-                    <button type="submit" name="form_type" value="delete_form"
+                    <button type="submit" name="action" value="delete"
                         class="bg-red-800 rounded-md hover:bg-red-600 cursor-pointer transition text-white p-2">
                         <svg xmlns="http://www.w3.org/2000/svg"
                             width="24"
