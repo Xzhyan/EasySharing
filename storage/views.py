@@ -61,7 +61,27 @@ def download_files(request):
     
     # Verifica se é apenas um ou são mais arquivos pra download.
     if len(file_list) > 1:
-        pass
+        buffer = BytesIO()
+
+        with zipfile.ZipFile(buffer, 'w', zipfile.ZIP_DEFLATED) as zip_file:
+            
+            for file_obj in file_objs:
+                file_obj_path = file_obj.archive.path
+
+                zip_name = file_obj.archive.name.split('/')[-1]
+
+                zip_file.write(file_obj_path, zip_name)
+
+        buffer.seek(0)
+
+        response = HttpResponse(
+            buffer,
+            content_type='application/zip'
+        )
+
+        response['Content-Disposition'] = 'attachment; filename="arquivos.zip"'
+
+        return response
 
     else:
         try:
@@ -97,6 +117,9 @@ def actions(request):
         response = download_files(request)
 
         if isinstance(response, FileResponse):
+            return response
+        
+        elif isinstance(response, HttpResponse):
             return response
     
     elif action == 'delete':
