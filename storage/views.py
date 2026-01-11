@@ -38,7 +38,6 @@ def upload_files(request):
             if created:
                 save_file.owner_id = file_owner
                 save_file.save()
-                messages.success(request, "Arquivo(s) enviado(s) com sucesso!")
 
         except IntegrityError:
             messages.error(request, "Erro de integridade no banco de dados.")
@@ -47,6 +46,8 @@ def upload_files(request):
         except Exception as e:
             messages.error(request, f"Erro: {e}")
             return
+
+    messages.success(request, "Arquivo(s) enviado(s) com sucesso!")
 
 
 def download_files(request):
@@ -105,6 +106,20 @@ def delete_files(request):
     if not file_list:
         messages.error(request, "Por favor, selecione um ou mais arquivos!")
         return
+    
+    file_objs = Archive.objects.filter(id__in=file_list)
+    
+    for file_obj in file_objs:
+        try:
+            file_obj.archive.delete(save=False)
+            file_obj.delete()
+        
+        except Exception as e:
+            messages.error(request, "Erro: {e}")
+            return
+
+    messages.success(request, "Arquivo(s) deletado(s) com sucesso!")
+    return
 
 # ------- Views -------
 
@@ -124,7 +139,7 @@ def actions(request):
             return response
 
     elif action == 'delete':
-        pass
+        delete_files(request)
 
     return redirect('main')
 
