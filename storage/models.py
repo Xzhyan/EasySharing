@@ -21,7 +21,7 @@ class Folder(models.Model):
 
 class Archive(models.Model):
     archive = models.FileField(upload_to='uploads/')
-    file_name = models.CharField(max_length=200)
+    file_name = models.CharField(max_length=200, unique=True)
     owner_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
     size = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True)
