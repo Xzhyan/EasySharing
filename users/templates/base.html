@@ -108,11 +108,23 @@
             });
         }
 
+        function filesCount() {
+            const countSpan = document.getElementById("file_count")
+            const countInput = document.getElementById("file_input")
+
+            countInput.addEventListener("change", function () {
+                const totalFiles = countInput.files.length
+
+                countSpan.textContent = `${totalFiles} arquivos selecionados.`
+            });
+        }
+
         document.addEventListener("DOMContentLoaded", function () {
             enableSearch("search-files", "tbody tr");
         });
         document.addEventListener("DOMContentLoaded", hideMsgPopUp)
         document.addEventListener("DOMContentLoaded", selectAllCheckBox);
+        document.addEventListener("DOMContentLoaded", filesCount);
     </script>
 
     <!-- <script>
