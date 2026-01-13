@@ -12,7 +12,7 @@
                 {% csrf_token %}
 
                 <label for="file_input"
-                    class="bg-stone-800 hover:bg-stone-700 w-[40%] mx-auto py-4 transition rounded-sm shadow-md cursor-pointer"
+                    class="bg-stone-800 hover:bg-stone-700 w-[40%] mx-auto py-4 transition rounded-sm shadow-md cursor-pointer animate-pulse"
                 >
                     [ + ]
                 </label>
@@ -44,7 +44,7 @@
                 </div>
 
                 <!-- Ações do sistema -->
-                <div class="p-2">
+                <div class="flex p-2 gap-2">
                     <!-- Download -->
                     <button type="submit" name="action" value="download"
                         class="bg-blue-800 rounded-md hover:bg-blue-600 cursor-pointer transition text-white p-2">
@@ -84,6 +84,10 @@
                             <path d="M14 11v6" />
                         </svg>
                     </button>
+
+                    <div>
+                        <p>nenhum arquivo</p>
+                    </div>
                 </div>
             </div>
 
@@ -94,7 +98,7 @@
                         <tr>
                             <th class="px-2 py-1">
                                 <input type="checkbox" id="select-all"
-                                    class="cursor-pointer">
+                                    class="cursor-pointer scale-130 translate-y-[2px] accent-green-700">
                             </th>
                             <th class="px-2 py-1">Título</th>
                             <th class="px-2 py-1">Proprietário</th>
@@ -107,7 +111,7 @@
                             <tr class="shadow-md hover:bg-stone-600 cursor-pointer transition">
                                 <th class="px-2 py-1">
                                     <input type="checkbox" name="file-checkbox" value="{{ archive.id }}"
-                                        class="checkbox cursor-pointer">
+                                        class="checkbox cursor-pointer scale-130 translate-y-[2px] accent-green-700">
                                 </th>
                                 <td class="px-2 py-1">{{ archive.file_name }}</td>
                                 <td class="px-2 py-1">{{ archive.owner_id }}</td>

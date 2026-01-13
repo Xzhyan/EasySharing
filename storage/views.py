@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse, FileResponse
 from django.db import IntegrityError
+from django.contrib.auth.decorators import login_required
 
 # Models
 from .models import Archive
@@ -123,6 +124,7 @@ def delete_files(request):
 
 # ------- Views -------
 
+@login_required(login_url='user-login')
 def actions(request):
     if request.method != 'POST':
         return HttpResponse(status=405)
@@ -143,7 +145,7 @@ def actions(request):
 
     return redirect('main')
 
-
+@login_required
 def main_storage(request):
     """
     Pra não confundir, usei 'archive' para os arquivos listados no frotend
