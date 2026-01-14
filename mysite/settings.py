@@ -125,7 +125,7 @@ STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'users.CustomUser'
 
 # Armazenamento de arquivos
-MEDIA_URL = '/media/'
-MEDIA_ROOT = join(BASE_DIR, 'media')
+MEDIA_URL = '/archives/'
+MEDIA_ROOT = join(BASE_DIR, 'archives')
 
 LOGIN_URL = '/'
