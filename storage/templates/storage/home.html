@@ -4,7 +4,7 @@
 <div class="w-full grid md:grid-cols-8 sm:grid-cols-1 gap-1">
     <!-- Menu de controle do sistema -->
     <div class="col-span-2 bg-stone-800 text-center py-2">
-        <span>Controle e Configurações</span>
+        <span>Painel de Controle</span>
         
         <!-- Upload de arquivos -->
         <div class="bg-stone-900 shadow-md rounded-sm m-2">
@@ -22,11 +22,19 @@
                 <input id="upload_input" type="file" name="upload_list" multiple onchange="" class="hidden">
 
                 <button name="action" value="upload" type="submit"
-                    class="bg-blue-800 hover:bg-blue-600 px-4 py-2 text-white m-auto transition rounded-sm shadow-md cursor-pointer"
+                    class="bg-green-800 hover:bg-green-600 px-4 py-2 text-white m-auto transition rounded-sm shadow-md cursor-pointer"
                 >
                     Enviar
                 </button>
             </form>
+        </div>
+
+        <div class="flex flex-col gap-2 p-2 m-2 bg-stone-900 shadow-md rounded-sm">
+            <a href="#"
+                class="bg-blue-600 px-4 py-2 rounded-sm m-auto"
+            >
+                Configurações
+            </a>
         </div>
     </div>
 
