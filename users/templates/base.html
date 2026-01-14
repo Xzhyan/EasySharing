@@ -71,6 +71,7 @@
                 }, 3000);
             });
         }
+        document.addEventListener("DOMContentLoaded", hideMsgPopUp)
 
         function selectAllCheckBox() {
             const selectAll = document.getElementById("select-all");
@@ -94,6 +95,7 @@
                 });
             }
         }
+        document.addEventListener("DOMContentLoaded", selectAllCheckBox);
 
         function enableSearch(inputId, targetSelector) {
             const searchInput = document.getElementById(inputId);
@@ -110,6 +112,9 @@
                 });
             });
         }
+        document.addEventListener("DOMContentLoaded", function () {
+            enableSearch("search-files", "tbody tr");
+        });
 
         function uploadFilesCount() {
             const countSpan = document.getElementById("upload_count")
@@ -121,6 +126,7 @@
                 countSpan.textContent = `${totalFiles} arquivos selecionados.`
             });
         }
+        document.addEventListener("DOMContentLoaded", uploadFilesCount);
 
         function selectedItemsCount() {
             const checkboxes = document.querySelectorAll(".checkbox");
@@ -135,13 +141,9 @@
             const countSpan = document.getElementById("selected-items");
             countSpan.textContent = selectedItems.length;
         }
-
         document.querySelectorAll('.checkbox').forEach(cb => {
             cb.addEventListener('change', selectedItemsCount);
         });
-        document.addEventListener("DOMContentLoaded", hideMsgPopUp)
-        document.addEventListener("DOMContentLoaded", selectAllCheckBox);
-        document.addEventListener("DOMContentLoaded", uploadFilesCount);
     </script>
 </body>
 </html>
