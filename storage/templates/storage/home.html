@@ -11,15 +11,15 @@
             <form method="POST" enctype="multipart/form-data" action="{% url 'actions' %}" class="flex flex-col p-2 gap-2">
                 {% csrf_token %}
 
-                <label for="file_input"
+                <label for="upload_input"
                     class="bg-stone-800 hover:bg-stone-700 w-[40%] mx-auto py-4 transition rounded-sm shadow-md cursor-pointer animate-pulse"
                 >
                     [ + ]
                 </label>
 
-                <span id="file_count" class="text-sm">nenhum arquivo selecionado</span>
+                <span id="upload_count" class="text-sm">nenhum arquivo selecionado</span>
 
-                <input id="file_input" type="file" name="file_list" multiple onchange="" class="hidden">
+                <input id="upload_input" type="file" name="upload_list" multiple onchange="" class="hidden">
 
                 <button name="action" value="upload" type="submit"
                     class="bg-blue-800 hover:bg-blue-600 px-4 py-2 text-white m-auto transition rounded-sm shadow-md cursor-pointer"
@@ -85,9 +85,7 @@
                         </svg>
                     </button>
 
-                    <div>
-                        <p>nenhum arquivo</p>
-                    </div>
+                    <span id="selected-items">Nenhum</span>
                 </div>
             </div>
 
@@ -110,7 +108,7 @@
                         {% for archive in archives %}
                             <tr class="shadow-md hover:bg-stone-600 cursor-pointer transition">
                                 <th class="px-2 py-1">
-                                    <input type="checkbox" name="file-checkbox" value="{{ archive.id }}"
+                                    <input type="checkbox" name="selected" value="{{ archive.id }}"
                                         class="checkbox cursor-pointer scale-130 translate-y-[2px] accent-green-700">
                                 </th>
                                 <td class="px-2 py-1">{{ archive.file_name }}</td>

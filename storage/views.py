@@ -18,7 +18,7 @@ User = get_user_model()
 # ------- Funções -------
 
 def upload_files(request):
-    file_list = request.FILES.getlist('file_list')
+    file_list = request.FILES.getlist('upload_list')
     file_owner = request.user
 
     if not file_list:
@@ -52,7 +52,7 @@ def upload_files(request):
 
 
 def download_files(request):
-    file_list = request.POST.getlist('file-checkbox')
+    file_list = request.POST.getlist('selected')
 
     if not file_list:
         messages.error(request, "Por favor, selecione um ou mais arquivos!")
@@ -102,7 +102,7 @@ def download_files(request):
 
 
 def delete_files(request):
-    file_list = request.POST.getlist('file-checkbox')
+    file_list = request.POST.getlist('selected')
 
     if not file_list:
         messages.error(request, "Por favor, selecione um ou mais arquivos!")

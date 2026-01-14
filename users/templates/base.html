@@ -77,9 +77,10 @@
                 const visibleRows = document.querySelectorAll('tbody tr:not([style*="display: none"])');
 
                 visibleRows.forEach(row => {
-                    const checkbox = row.querySelector('input[name="file-checkbox"]');
+                    const checkbox = row.querySelector('input[name="selected"]');
                     if (checkbox) checkbox.checked = selectAll.checked;
                 });
+                selectedItemsCount();
             });
 
             // Se houver uma nova pesquisa na barra reseta.
@@ -108,102 +109,37 @@
             });
         }
 
-        function filesCount() {
-            const countSpan = document.getElementById("file_count")
-            const countInput = document.getElementById("file_input")
+        function uploadFilesCount() {
+            const countSpan = document.getElementById("upload_count")
+            const filesInput = document.getElementById("upload_input")
 
-            countInput.addEventListener("change", function () {
-                const totalFiles = countInput.files.length
+            filesInput.addEventListener("change", function () {
+                const totalFiles = filesInput.files.length
 
                 countSpan.textContent = `${totalFiles} arquivos selecionados.`
             });
         }
 
-        document.addEventListener("DOMContentLoaded", function () {
-            enableSearch("search-files", "tbody tr");
+        function selectedItemsCount() {
+            const checkboxes = document.querySelectorAll(".checkbox");
+            const selectedItems = [];
+
+            checkboxes.forEach(cb => {
+                if (cb.checked) {
+                    selectedItems.push(cb.value);
+                }
+            });
+
+            const countSpan = document.getElementById("selected-items");
+            countSpan.textContent = selectedItems.length;
+        }
+
+        document.querySelectorAll('.checkbox').forEach(cb => {
+            cb.addEventListener('change', selectedItemsCount);
         });
         document.addEventListener("DOMContentLoaded", hideMsgPopUp)
         document.addEventListener("DOMContentLoaded", selectAllCheckBox);
-        document.addEventListener("DOMContentLoaded", filesCount);
+        document.addEventListener("DOMContentLoaded", uploadFilesCount);
     </script>
-
-    <!-- <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const selectAll = document.getElementById("select-all");
-
-            // Quando o "Selecionar Tudo" for clicado
-            selectAll.addEventListener("change", () => {
-                // Seleciona apenas as linhas visíveis (as que a pesquisa não ocultou)
-                const visibleRows = document.querySelectorAll('tbody tr:not([style*="display: none"])');
-
-                visibleRows.forEach(row => {
-                    const checkbox = row.querySelector('input[name="files"]');
-                    if (checkbox) checkbox.checked = selectAll.checked;
-                });
-            });
-
-            // Reativa o botão "Selecionar Tudo" após nova pesquisa
-            const searchInput = document.getElementById("search-files");
-            if (searchInput) {
-                searchInput.addEventListener("input", () => {
-                    // Quando fizer uma nova pesquisa, desmarca o select-all
-                    selectAll.checked = false;
-                });
-            }
-        });
-
-        // Função de pesquisa do sistema
-        function enableSearch(inputId, targetSelector) {
-            const searchInput = document.getElementById(inputId);
-
-            if (!searchInput) return;
-
-            searchInput.addEventListener("input", function () {
-                const term = this.value.toLowerCase();
-                const lines = document.querySelectorAll(targetSelector);
-
-                lines.forEach((line) => {
-                    const text = line.textContent.toLowerCase();
-                    line.style.display = text.includes(term) ? "" : "none";
-                });
-            });
-        }
-        // Ativa a pesquisa na tabela
-        document.addEventListener("DOMContentLoaded", function () {
-            enableSearch("search-files", "tbody tr");
-        });
-
-        // Contador de arquivos selecionados.
-        function updateFileCount(event) {
-            const count = event.target.files.length;
-            const label = document.getElementById('file_count');
-
-            if (count === 0) {
-                label.textContent = '';
-            } else if (count === 1) {
-                label.textContent = '1 arquivo selecionado';
-            } else {
-                label.textContent = `${count} arquivos selecionados`;
-            }
-        }
-
-        // Codigo para desaparecer o pop up de menssagens
-        document.addEventListener("DOMContentLoaded", function () {
-            const messages = document.querySelectorAll(".popup-message");
-
-            messages.forEach((msg) => {
-                // Depois de 3 segundos começa a sumir
-                setTimeout(() => {
-                    msg.style.opacity = "0";
-                }, 3000);
-
-                // Depois de 3.5 segundos remove do DOM
-                setTimeout(() => {
-                    msg.remove();
-                }, 3500);
-            });
-        });
-    </script> -->
 </body>
-
 </html>
