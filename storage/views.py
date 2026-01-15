@@ -125,6 +125,10 @@ def delete_files(request):
 # ------- Views -------
 
 @login_required(login_url='user-login')
+def control(request):
+    return render(request, 'storage/control.html')
+
+@login_required(login_url='user-login')
 def actions(request):
     if request.method != 'POST':
         return HttpResponse(status=405)
@@ -145,7 +149,7 @@ def actions(request):
 
     return redirect('main')
 
-@login_required
+@login_required(login_url='user-login')
 def main_storage(request):
     """
     Pra não confundir, usei 'archive' para os arquivos listados no frotend
