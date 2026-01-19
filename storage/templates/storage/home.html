@@ -30,16 +30,16 @@
         </div>
 
         <div class="flex flex-col gap-2 p-2 m-2 bg-stone-900 shadow-md rounded-sm">
-            <a href="{% url 'control' %}"
+            <button id="toggle_btn" onclick="toggleConfigMenu()"
                 class="bg-blue-800 hover:bg-blue-600 px-4 py-2 rounded-sm m-auto text-white"
             >
                 Configurações
-            </a>
+            </button>
         </div>
     </div>
 
     <!-- Caixa de pastas e arquivos -->
-    <div class="col-span-6 flex flex-col bg-stone-800 gap-2 p-2 2xl:min-h-216 min-h-150">
+    <div id="archives_menu" class="col-span-6 flex flex-col bg-stone-800 gap-2 p-2 2xl:min-h-216 min-h-150">
         <span class="text-sm"><b>Caminho atual:</b> archives\main\</span>
 
         <form method="POST" action="{% url 'actions' %}">
@@ -99,7 +99,7 @@
             </div>
 
             <!-- Tabela de pastas e arquivos -->
-            <div class="rounded-md shadow-md mt-2 lg:max-h-122 max-h-100 overflow-y-auto">
+            <div class="rounded-md shadow-md mt-2 2xl:max-h-188 xl:max-h-122 overflow-y-auto">
                 <table class="w-full text-center shadow-md">
                     <thead class="bg-stone-900 text-xs sticky top-0 z-10">
                         <tr>
@@ -131,5 +131,28 @@
             </div>
         </form>
     </div>
+    
+    <div id="config_menu" style="display: none;" class="col-span-6 flex flex-col bg-stone-800 gap-2 p-2 2xl:min-h-216 min-h-150">
+
+    </div>
 </div>
+
+<script>
+    // Alterar em exibir o menu de configurações e o de armazenamento.
+    function toggleConfigMenu() {
+        const toggleButton = document.getElementById("toggle_btn")
+        const archivesMenu = document.getElementById("archives_menu");
+        const configMenu = document.getElementById("config_menu");
+
+        if (configMenu.style.display === "none") {
+            archivesMenu.style.display = "none";
+            configMenu.style.display = "block";
+            toggleButton.textContent = "Armazenamento"
+        } else {
+            archivesMenu.style.display = "block";
+            configMenu.style.display = "none";
+            toggleButton.textContent = "Configurações"
+        }
+    }
+</script>
 {% endblock %}

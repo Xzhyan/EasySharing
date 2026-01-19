@@ -126,7 +126,7 @@ def delete_files(request):
 
 @login_required(login_url='user-login')
 def control(request):
-    return render(request, 'storage/control.html')
+    return HttpResponse(request, "Control")
 
 @login_required(login_url='user-login')
 def actions(request):
