@@ -2,12 +2,12 @@
 {% block title %} EasySharing - Home {% endblock %}
 {% block content %}
 <div class="w-full grid md:grid-cols-8 sm:grid-cols-1 gap-1">
-    <!-- Menu de controle do sistema -->
+    <!-- Menu de controle -->
     <div class="col-span-2 bg-stone-800 text-center py-2">
-        <span>Painel de Controle</span>
-        
+        <span class="font-bold">Painel de Controle</span>
+
         <!-- Upload de arquivos -->
-        <div class="bg-stone-900 shadow-md rounded-sm m-2">
+        <div class="bg-stone-900 shadow-md rounded-sm m-2"> 
             <form method="POST" enctype="multipart/form-data" action="{% url 'actions' %}" class="flex flex-col p-2 gap-2">
                 {% csrf_token %}
 
@@ -29,31 +29,33 @@
             </form>
         </div>
 
+        <!-- Menu de navegação e outros -->
         <div class="flex flex-col gap-2 p-2 m-2 bg-stone-900 shadow-md rounded-sm">
-            <button id="toggle_btn" onclick="toggleConfigMenu()"
+            <a href="{% url 'control' %}"
                 class="bg-blue-800 hover:bg-blue-600 px-4 py-2 rounded-sm m-auto text-white"
             >
                 Configurações
-            </button>
+            </a>
         </div>
     </div>
 
-    <!-- Caixa de pastas e arquivos -->
+    <!-- Armazenamento, lista de aqruivos e ações -->
     <div id="archives_menu" class="col-span-6 flex flex-col bg-stone-800 gap-2 p-2 2xl:min-h-216 min-h-150">
         <span class="text-sm"><b>Caminho atual:</b> archives\main\</span>
 
+        <!-- Form das ações -->
         <form method="POST" action="{% url 'actions' %}">
         {% csrf_token %}
             <div class="bg-stone-900 grid grid-cols-2 rounded-md shadow-md">
-                <!-- Barra de pesquisa -->
+                
+                <!-- Pesquisa -->
                 <div class="p-2">
                     <input id="search-files" type="text" placeholder="Pesquisar por arquivo ou documento..."
                         class="w-full outline-none hover:bg-stone-800 px-2 py-2 rounded-sm shadow-md transition">
                 </div>
 
-                <!-- Ações do sistema -->
+                <!-- Ações -->
                 <div class="flex p-2 gap-2">
-                    <!-- Contagem de arquivos selecionados -->
                     <span id="selected-items" class="bg-stone-800 rounded-md text-green-600 px-4 py-1.5 text-lg">0</span>
 
                     <!-- Download -->
@@ -98,7 +100,7 @@
                 </div>
             </div>
 
-            <!-- Tabela de pastas e arquivos -->
+            <!-- Tabela de arquivos, lista -->
             <div class="rounded-md shadow-md mt-2 2xl:max-h-188 xl:max-h-122 overflow-y-auto">
                 <table class="w-full text-center shadow-md">
                     <thead class="bg-stone-900 text-xs sticky top-0 z-10">
@@ -131,13 +133,9 @@
             </div>
         </form>
     </div>
-    
-    <div id="config_menu" style="display: none;" class="col-span-6 flex flex-col bg-stone-800 gap-2 p-2 2xl:min-h-216 min-h-150">
-        <span class="text-sm">Configurações</span>
-    </div>
 </div>
 
-<script>
+<!-- <script>
     // Alterar em exibir o menu de configurações e o de armazenamento.
     function toggleConfigMenu() {
         const toggleButton = document.getElementById("toggle_btn")
@@ -154,5 +152,5 @@
             toggleButton.textContent = "Configurações"
         }
     }
-</script>
+</script> -->
 {% endblock %}
