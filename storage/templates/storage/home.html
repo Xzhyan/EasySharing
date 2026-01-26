@@ -4,17 +4,19 @@
 <div class="grid grid-cols-1 md:grid-cols-8 gap-2">
 
     <!-- Painel de controle -->
-    <div class="md:col-span-2 bg-stone-800 text-center py-2">
-        <span class="font-bold">Painel de Controle</span>
+    <div class="md:col-span-2 bg-stone-800 text-center py-2 rounded-b-md shadow-md">
+        <h2 class="text-center font-medium mb-2">
+            Upload de arquivos...
+        </h2>
 
         <!-- Upload de arquivos -->
-        <div class="bg-stone-900 shadow-md rounded-sm mt-2 mx-2"> 
-            <form method="POST" enctype="multipart/form-data" action="{% url 'actions' %}" class="flex flex-col p-2 gap-2">
+        <div class="bg-stone-900 shadow-md rounded-sm mx-2">
+            <form method="POST" enctype="multipart/form-data" action="{% url 'actions' %}"
+                class="flex flex-col p-2 gap-2">
                 {% csrf_token %}
 
                 <label for="upload_input"
-                    class="bg-stone-800 hover:bg-stone-700 w-full md:w-[40%] mx-auto py-4 transition rounded-sm shadow-md cursor-pointer"
-                >
+                    class="bg-stone-800 hover:bg-stone-700 w-full md:w-[40%] mx-auto py-4 transition rounded-sm shadow-md cursor-pointer">
                     [ + ]
                 </label>
 
@@ -23,8 +25,7 @@
                 <input id="upload_input" type="file" name="upload_list" multiple onchange="" class="hidden">
 
                 <button name="action" value="upload" type="submit"
-                    class="bg-green-800 hover:bg-green-600 px-4 py-2 text-white m-auto transition rounded-sm shadow-md cursor-pointer"
-                >
+                    class="bg-green-800 hover:bg-green-600 px-4 py-2 text-white m-auto transition rounded-sm shadow-md cursor-pointer">
                     Enviar
                 </button>
             </form>
@@ -33,14 +34,15 @@
 
     <!-- Pesquisa, lista de arquivos e ações -->
     <div class="md:col-span-6">
-        <div class="flex flex-col bg-stone-800 p-2">
-            <span class="text-sm"><b>Caminho atual:</b> archives\main\</span>
-            
+        <div class="flex flex-col bg-stone-800 p-2 rounded-b-md shadow-md">
+            <span class="text-sm mt-1 mb-2">
+                Caminho atual: storage\main
+            </span>
+
             <!-- Form das ações -->
             <form method="POST" action="{% url 'actions' %}">
-            {% csrf_token %}
+                {% csrf_token %}
                 <div class="bg-stone-900 grid grid-cols-2 rounded-md shadow-md">
-                    
                     <!-- Pesquisa -->
                     <div class="p-2">
                         <input id="search-files" type="text" placeholder="Pesquisar por arquivo ou documento..."
@@ -48,22 +50,16 @@
                     </div>
 
                     <!-- Ações -->
-                    <div class="flex p-2 gap-2">
-                        <span id="selected-items" class="bg-stone-800 rounded-md text-green-600 px-4 py-1.5 text-lg">0</span>
+                    <div class="flex p-2 gap-2 shadow-md">
+                        <span id="selected-items"
+                            class="bg-stone-800 shadow-md rounded-md text-green-600 px-4 py-1.5 text-lg">0</span>
 
                         <!-- Download -->
                         <button type="submit" name="action" value="download"
-                            class="bg-blue-800 rounded-md hover:bg-blue-600 cursor-pointer transition text-white p-2">
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            >
+                            class="bg-blue-800 shadow-md rounded-md hover:bg-blue-600 cursor-pointer transition text-white p-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
                                 <path d="M12 3v12" />
                                 <path d="M8 11l4 4 4-4" />
                                 <path d="M5 21h14" />
@@ -72,17 +68,10 @@
 
                         <!-- Deletar -->
                         <button type="submit" name="action" value="delete"
-                            class="bg-red-800 rounded-md hover:bg-red-600 cursor-pointer transition text-white p-2">
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            >
+                            class="bg-red-800 shadow-md rounded-md hover:bg-red-600 cursor-pointer transition text-white p-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
                                 <path d="M3 6h18" />
                                 <path d="M8 6V4h8v2" />
                                 <path d="M6 6l1 14h10l1-14" />
@@ -110,16 +99,16 @@
                         </thead>
                         <tbody class="bg-stone-700 text-white">
                             {% for archive in archives %}
-                                <tr class="shadow-md hover:bg-stone-600 cursor-pointer transition">
-                                    <th class="px-2 py-1">
-                                        <input type="checkbox" name="selected" value="{{ archive.id }}"
-                                            class="checkbox cursor-pointer scale-130 translate-y-[2px] accent-green-700">
-                                    </th>
-                                    <td class="px-2 py-1">{{ archive.file_name }}</td>
-                                    <td class="px-2 py-1">{{ archive.owner_id }}</td>
-                                    <td class="px-2 py-1">{{ archive.modified_at }}</td>
-                                    <td class="px-2 py-1">{{ archive.size }}</td>
-                                </tr>
+                            <tr class="shadow-md hover:bg-stone-600 cursor-pointer transition">
+                                <th class="px-2 py-1">
+                                    <input type="checkbox" name="selected" value="{{ archive.id }}"
+                                        class="checkbox cursor-pointer scale-130 translate-y-[2px] accent-green-700">
+                                </th>
+                                <td class="px-2 py-1">{{ archive.file_name }}</td>
+                                <td class="px-2 py-1">{{ archive.owner_id }}</td>
+                                <td class="px-2 py-1">{{ archive.modified_at }}</td>
+                                <td class="px-2 py-1">{{ archive.size }}</td>
+                            </tr>
                             {% endfor %}
                         </tbody>
                     </table>
@@ -127,7 +116,7 @@
             </form>
         </div>
     </div>
-  </div>
+</div>
 
 <!-- <script>
     // Alterar em exibir o menu de configurações e o de armazenamento.
