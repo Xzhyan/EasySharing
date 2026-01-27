@@ -4,13 +4,13 @@ class LoginForm(forms.Form):
     username = forms.CharField(
         max_length=200,
         widget=forms.TextInput(attrs={
-            'class': "bg-stone-900 hover:bg-stone-800 rounded-md p-2 shadow-md outline-none",
-            'placeholder': "Digite seu nome de usuário..."
+            'class': "w-full max-w-sm bg-stone-900 hover:bg-stone-800 rounded-sm p-2 shadow-md outline-none text-sm",
+            'placeholder': "Usuário"
         })
     )
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={
-            'class': "bg-stone-900 hover:bg-stone-800 rounded-md p-2 shadow-md outline-none",
-            'placeholder': "Digite sua senha de acesso..."
+            'class': "w-full max-w-sm bg-stone-900 hover:bg-stone-800 rounded-md p-2 shadow-md outline-none text-sm",
+            'placeholder': "Senha"
         })
     )

@@ -1,3 +1,8 @@
+{% if debug %}
+{% load django_browser_reload %}
+{% django_browser_reload_script %}
+{% endif %}
+
 {% load static %}
 <!DOCTYPE html>
 <html lang="pt_BR">
@@ -38,9 +43,9 @@
 
             <!-- Titutlo e logo do sistema -->
             <div class="flex items-center gap-2">
-                <h1 class="text-sm sm:text-base font-normal whitespace-nowrap">
-                    <b>EasySharing</b>Free
-                    <span class="hidden sm:inline text-gray-400 font-normal">
+                <h1 class="text-gray-500 text-sm sm:text-base whitespace-nowrap">
+                    <b class="text-gray-300">EasySharing</b>Free
+                    <span class="hidden sm:inline font-normal">
                         - Internal Sharing and Storage
                     </span>
                 </h1>
