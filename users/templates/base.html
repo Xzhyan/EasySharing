@@ -24,15 +24,15 @@
     {% if messages %}
     <div class="fixed top-5 right-5 space-y-2 z-50">
         {% for msg in messages %}
-        <div class="msg-pop-up w-[300px] text-center px-4 py-2 rounded-md shadow-md transition-opacity duration-500
+            <div class="msg-pop-up w-[300px] text-center px-4 py-2 rounded-md shadow-md transition-opacity duration-500
                     {% if msg.tags == 'success' %}bg-green-700 text-white
                     {% elif msg.tags == 'error' %}bg-red-700 text-white
                     {% elif msg.tags == 'warning' %}bg-yellow-700 text-black
                     {% elif msg.tags == 'info' %}bg-blue-700 text-white
                     {% else %}bg-gray-500 text-white
                     {% endif %}">
-            {{ msg }}
-        </div>
+                {{ msg }}
+            </div>
         {% endfor %}
     </div>
     {% endif %}
@@ -41,7 +41,7 @@
     <header class="w-full bg-stone-950 border-b-4 border-stone-900">
         <div class="flex items-center justify-between h-12 px-4 max-w-7xl mx-auto">
 
-            <!-- Titutlo e logo do sistema -->
+            <!-- Titulo e logo do sistema -->
             <div class="flex items-center gap-2">
                 <h1 class="text-gray-500 text-sm sm:text-base whitespace-nowrap">
                     <b class="text-gray-300">EasySharing</b>Free
@@ -94,99 +94,7 @@
     </main>
 
     <!-- JavaScript -->
-    <script>
-        // PopUp de Mensagens
-        function hideMsgPopUp() {
-            const messages = document.querySelectorAll(".msg-pop-up");
-
-            messages.forEach((msg) => {
-                setTimeout(() => {
-                    msg.style.opacity = "0";
-
-                    setTimeout(() => {
-                        msg.remove();
-                    }, 500);
-                }, 3000);
-            });
-        }
-        document.addEventListener("DOMContentLoaded", hideMsgPopUp)
-
-        // Selecionar todos, desmarcar todos
-        function selectAllCheckBox() {
-            const selectAll = document.getElementById("select-all");
-
-            selectAll.addEventListener("change", () => {
-                const visibleRows = document.querySelectorAll('tbody tr:not([style*="display: none"])');
-
-                visibleRows.forEach(row => {
-                    const checkbox = row.querySelector('input[name="selected"]');
-                    if (checkbox) checkbox.checked = selectAll.checked;
-                });
-                selectedItemsCount();
-            });
-
-            // Se houver uma nova pesquisa na barra reseta.
-            const searchInput = document.getElementById("search-files");
-
-            if (searchInput) {
-                searchInput.addEventListener("input", () => {
-                    selectAll.checked = false;
-                });
-            }
-        }
-        document.addEventListener("DOMContentLoaded", selectAllCheckBox);
-
-        // Pesquisar
-        function enableSearch(inputId, targetSelector) {
-            const searchInput = document.getElementById(inputId);
-
-            if (!searchInput) return;
-
-            searchInput.addEventListener("input", function () {
-                const term = this.value.toLowerCase();
-                const lines = document.querySelectorAll(targetSelector);
-
-                lines.forEach((line) => {
-                    const text = line.textContent.toLowerCase();
-                    line.style.display = text.includes(term) ? "" : "none";
-                });
-            });
-        }
-        document.addEventListener("DOMContentLoaded", function () {
-            enableSearch("search-files", "tbody tr");
-        });
-
-        // Contador de arquios para upload
-        function uploadFilesCount() {
-            const countSpan = document.getElementById("upload_count")
-            const filesInput = document.getElementById("upload_input")
-
-            filesInput.addEventListener("change", function () {
-                const totalFiles = filesInput.files.length
-
-                countSpan.textContent = `${totalFiles} arquivos selecionados.`
-            });
-        }
-        document.addEventListener("DOMContentLoaded", uploadFilesCount);
-
-        // Contador de arquivos selecionados
-        function selectedItemsCount() {
-            const checkboxes = document.querySelectorAll(".checkbox");
-            const selectedItems = [];
-
-            checkboxes.forEach(cb => {
-                if (cb.checked) {
-                    selectedItems.push(cb.value);
-                }
-            });
-
-            const countSpan = document.getElementById("selected-items");
-            countSpan.textContent = selectedItems.length;
-        }
-        document.querySelectorAll('.checkbox').forEach(cb => {
-            cb.addEventListener('change', selectedItemsCount);
-        });
-    </script>
+    <script defer src="{% static 'scripts.js' %}"></script>
 </body>
 
 </html>
