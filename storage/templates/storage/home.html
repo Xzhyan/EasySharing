@@ -45,7 +45,7 @@
                 <div class="bg-stone-800 grid grid-cols-2 rounded-md shadow-md">
                     <!-- Pesquisa -->
                     <div class="p-2">
-                        <input id="search-files" type="text" placeholder="O que você está procurando aqui?"
+                        <input id="search-files" type="text" placeholder="Procurar arquivos..."
                             class="w-full outline-none bg-stone-900 hover:bg-stone-700 px-2 py-2 rounded-sm shadow-md transition">
                     </div>
 
@@ -119,23 +119,4 @@
         </div>
     </div>
 </div>
-
-<!-- <script>
-    // Alterar em exibir o menu de configurações e o de armazenamento.
-    function toggleConfigMenu() {
-        const toggleButton = document.getElementById("toggle_btn")
-        const archivesMenu = document.getElementById("archives_menu");
-        const configMenu = document.getElementById("config_menu");
-
-        if (configMenu.style.display === "none") {
-            archivesMenu.style.display = "none";
-            configMenu.style.display = "block";
-            toggleButton.textContent = "Armazenamento"
-        } else {
-            archivesMenu.style.display = "block";
-            configMenu.style.display = "none";
-            toggleButton.textContent = "Configurações"
-        }
-    }
-</script> -->
 {% endblock %}

@@ -3,22 +3,26 @@
 {% block content %}
 <div class="w-full h-full grid grid-cols-12 gap-2">
     <!-- Painel de configurações gerais -->
-    <div class="col-span-12 md:col-span-3 bg-stone-800 rounded-b-md p-2">
+    <div class="col-span-12 md:col-span-3 bg-stone-900 rounded-b-md p-2">
         <h2 class="text-center font-medium mb-2">
             Painel Geral
         </h2>
 
-        <ul class="space-y-2 text-sm text-center">
-            <li class="p-2 rounded-md shadow-md bg-stone-900 hover:bg-stone-700 transition cursor-pointer">
+        <ul class="space-y-2 text-sm text-center text-white">
+            <li id="toggle_btn"
+                class="p-2 rounded-md shadow-md bg-stone-800 hover:bg-stone-700 transition cursor-pointer">
                 Usuários
             </li>
-            <li class="p-2 rounded-md shadow-md bg-stone-900 hover:bg-stone-700 transition cursor-pointer">
+            <li id="toggle_btn"
+                class="p-2 rounded-md shadow-md bg-stone-800 hover:bg-stone-700 transition cursor-pointer">
                 Pastas
             </li>
-            <li class="p-2 rounded-md shadow-md bg-stone-900 hover:bg-stone-700 transition cursor-pointer">
+            <li id="toggle_btn"
+                class="p-2 rounded-md shadow-md bg-stone-800 hover:bg-stone-700 transition cursor-pointer">
                 Equipes
             </li>
-            <li class="p-2 rounded-md shadow-md bg-stone-900 hover:bg-stone-700 transition cursor-pointer">
+            <li id="toggle_btn"
+                class="p-2 rounded-md shadow-md bg-stone-800 hover:bg-stone-700 transition cursor-pointer">
                 Sobre
             </li>
         </ul>
@@ -27,16 +31,44 @@
     <!-- Área de configurações -->
     <div class="col-span-12 md:col-span-9 space-y-2">
         <!-- Card de configuração -->
-        <div class="bg-stone-800 rounded-b-md p-2">
+        <div class="bg-stone-900 rounded-b-md p-2">
             <p class="text-center mb-2">
                 Configurações
             </p>
 
-            <div class="bg-stone-900 rounded-md shadow-md">
-
+            <!-- Usuários -->
+            <div id="user_config" class="block bg-stone-900 rounded-md shadow-md">
+                Usuarios
             </div>
+
+            <!-- Pastas -->
+            <div id="folder_config" class="hidden bg-stone-900 rounded-md shadow-md">
+                Pastas
+            </div>
+
+            <!-- Equipes -->
+            <div id="team_config" class="hidden bg-stone-900 rounded-md shadow-md">
+                Equipes
+            </div>
+
+            <!-- Sobre -->
+            <div id="about_config" class="hidden bg-stone-900 rounded-md shadow-md">
+                Sobre
+            </div>
+
         </div>
     </div>
 </div>
+<script>
+    // Alterar em exibir o menu de configurações e o de armazenamento.
+    function toggleConfigMenu() {
+        const toggleButton = document.getElementById("toggle_btn")
+        const userConfig = document.getElementById("user_config");
+        const folderConfig = document.getElementById("folder_config");
+        const teamConfig = document.getElementById("team_config")
+        const aboutConfig = document.getElementById("about_config")
 
+        if
+    }
+</script>
 {% endblock %}
