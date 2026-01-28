@@ -9,20 +9,20 @@
         </h2>
 
         <ul class="space-y-2 text-sm text-center text-white">
-            <li id="toggle_btn"
-                class="p-2 rounded-md shadow-md bg-stone-800 hover:bg-stone-700 transition cursor-pointer">
+            <li id="toggle_btn" data-page="users"
+                class="menu-item p-2 rounded-md shadow-md bg-blue-800 transition cursor-pointer">
                 Usuários
             </li>
-            <li id="toggle_btn"
-                class="p-2 rounded-md shadow-md bg-stone-800 hover:bg-stone-700 transition cursor-pointer">
+            <li id="toggle_btn" data-page="folders"
+                class="menu-item p-2 rounded-md shadow-md bg-stone-800 transition cursor-pointer">
                 Pastas
             </li>
-            <li id="toggle_btn"
-                class="p-2 rounded-md shadow-md bg-stone-800 hover:bg-stone-700 transition cursor-pointer">
+            <li id="toggle_btn" data-page="teams"
+                class="menu-item p-2 rounded-md shadow-md bg-stone-800 transition cursor-pointer">
                 Equipes
             </li>
-            <li id="toggle_btn"
-                class="p-2 rounded-md shadow-md bg-stone-800 hover:bg-stone-700 transition cursor-pointer">
+            <li id="toggle_btn" data-page="about"
+                class="menu-item p-2 rounded-md shadow-md bg-stone-800 transition cursor-pointer">
                 Sobre
             </li>
         </ul>
@@ -37,22 +37,22 @@
             </p>
 
             <!-- Usuários -->
-            <div id="user_config" class="block bg-stone-900 rounded-md shadow-md">
+            <div id="users" class="menu-content block bg-stone-900 rounded-md shadow-md">
                 Usuarios
             </div>
 
             <!-- Pastas -->
-            <div id="folder_config" class="hidden bg-stone-900 rounded-md shadow-md">
+            <div id="folders" class="menu-content hidden bg-stone-900 rounded-md shadow-md">
                 Pastas
             </div>
 
             <!-- Equipes -->
-            <div id="team_config" class="hidden bg-stone-900 rounded-md shadow-md">
+            <div id="teams" class="menu-content hidden bg-stone-900 rounded-md shadow-md">
                 Equipes
             </div>
 
             <!-- Sobre -->
-            <div id="about_config" class="hidden bg-stone-900 rounded-md shadow-md">
+            <div id="about" class="menu-content hidden bg-stone-900 rounded-md shadow-md">
                 Sobre
             </div>
 
@@ -60,15 +60,36 @@
     </div>
 </div>
 <script>
-    // Alterar em exibir o menu de configurações e o de armazenamento.
-    function toggleConfigMenu() {
-        const toggleButton = document.getElementById("toggle_btn")
-        const userConfig = document.getElementById("user_config");
-        const folderConfig = document.getElementById("folder_config");
-        const teamConfig = document.getElementById("team_config")
-        const aboutConfig = document.getElementById("about_config")
+  const menuItems = document.querySelectorAll(".menu-item");
+  const contents = document.querySelectorAll(".menu-content");
 
-        if
-    }
+  menuItems.forEach(item => {
+    item.addEventListener("click", () => {
+
+      const page = item.dataset.page;
+
+      // 1️⃣ Esconde todos os conteúdos
+      contents.forEach(content => {
+        content.classList.add("hidden");
+      });
+
+      // 2️⃣ Mostra o conteúdo correspondente
+      const activeContent = document.getElementById(page);
+      if (activeContent) {
+        activeContent.classList.remove("hidden");
+      }
+
+      // 3️⃣ Remove destaque de todos os botões
+      menuItems.forEach(btn => {
+        btn.classList.remove("bg-blue-800", "hover:bg-blue-600");
+        btn.classList.add("bg-stone-800", "hover:bg-stone-600");
+      });
+
+      // 4️⃣ Destaca o botão clicado
+      item.classList.remove("bg-stone-800", "hover:bg-stone-600");
+      item.classList.add("bg-blue-800", "hover:bg-blue-600");
+    });
+  });
 </script>
+
 {% endblock %}
