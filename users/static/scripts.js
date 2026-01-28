@@ -104,3 +104,24 @@ document.addEventListener("DOMContentLoaded", () => {
     cb.addEventListener("change", selectedItemsCount);
   });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.getElementById("toggle_password");
+  const input = document.getElementById("id_password");
+  const iconShow = document.getElementById("icon_show");
+  const iconHide = document.getElementById("icon_hide");
+
+  if (!toggle || !input) return;
+
+  toggle.addEventListener("click", () => {
+    input.type = input.type === "password" ? "text" : "password";
+
+    if (iconShow.style.display === "block") {
+      iconShow.style.display = "none";
+      iconHide.style.display = "block";
+    } else {
+      iconShow.style.display = "block";
+      iconHide.style.display = "none";
+    }
+  });
+});
