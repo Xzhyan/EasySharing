@@ -32,28 +32,105 @@
     <div class="col-span-12 md:col-span-9 space-y-2">
         <!-- Card de configuração -->
         <div class="bg-stone-900 rounded-b-md p-2">
-            <p class="text-center mb-2">
-                Configurações
-            </p>
-
             <!-- Usuários -->
-            <div id="users" class="menu-content block bg-stone-900 rounded-md shadow-md">
-                Usuarios
+            <div id="users" class="menu-content block flex justify-center bg-stone-800 rounded-md shadow-md p-2">
+                <table class="w-full max-w-4xl text-center shadow-md">
+                    <thead class="bg-stone-950 text-xs sticky top-0 z-10 shadow-md">
+                        <tr>
+                            <th class="px-2 py-1">Usuário</th>
+                            <th class="px-2 py-1">Cargo</th>
+                            <th class="px-2 py-1">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-neutral-600 text-white">
+                        {% for user in users %}
+                            <tr class="shadow-md hover:bg-neutral-700 cursor-pointer transition">
+                                <td class="px-2 py-1">{{ user.username }}</td>
+                                <td class="px-2 py-1">{{ user.role }}</td>
+                                <td class="px-2 py-1">Deletar</td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="3" class="px-2 py-2 text-center text-neutral-400">
+                                    Nenhum usuário encontrado...
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
 
             <!-- Pastas -->
-            <div id="folders" class="menu-content hidden bg-stone-900 rounded-md shadow-md">
-                Pastas
+            <div id="folders" class="menu-content hidden flex justify-center bg-stone-800 rounded-md shadow-md p-2">
+                <table class="w-full max-w-4xl text-center shadow-md">
+                    <thead class="bg-stone-950 text-xs sticky top-0 z-10 shadow-md">
+                        <tr>
+                            <th class="px-2 py-1">Usuário</th>
+                            <th class="px-2 py-1">Cargo</th>
+                            <th class="px-2 py-1">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-neutral-600 text-white">
+                        {% for user in folders %}
+                            <tr class="shadow-md hover:bg-neutral-700 cursor-pointer transition">
+                                <td class="px-2 py-1">{{ user.username }}</td>
+                                <td class="px-2 py-1">{{ user.role }}</td>
+                                <td class="px-2 py-1">Deletar</td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="3" class="px-2 py-2 text-center text-neutral-400">
+                                    Nenhuma pasta encontrada...
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
 
             <!-- Equipes -->
-            <div id="teams" class="menu-content hidden bg-stone-900 rounded-md shadow-md">
-                Equipes
+            <div id="teams" class="menu-content hidden flex justify-center bg-stone-800 rounded-md shadow-md p-2">
+                <table class="w-full max-w-4xl text-center shadow-md">
+                    <thead class="bg-stone-950 text-xs sticky top-0 z-10 shadow-md">
+                        <tr>
+                            <th class="px-2 py-1">Usuário</th>
+                            <th class="px-2 py-1">Cargo</th>
+                            <th class="px-2 py-1">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-neutral-600 text-white">
+                        {% for user in teams %}
+                            <tr class="shadow-md hover:bg-neutral-700 cursor-pointer transition">
+                                <td class="px-2 py-1">{{ user.username }}</td>
+                                <td class="px-2 py-1">{{ user.role }}</td>
+                                <td class="px-2 py-1">Deletar</td>
+                            </tr>
+                        {% empty %}
+                            <tr>
+                                <td colspan="3" class="px-2 py-2 text-center text-neutral-400">
+                                    Nenhuma equipe encontrada...
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
             </div>
 
             <!-- Sobre -->
-            <div id="about" class="menu-content hidden bg-stone-900 rounded-md shadow-md">
-                Sobre
+            <div id="about" class="menu-content hidden flex justify-center bg-stone-800 rounded-md shadow-md p-2">
+                <div class="w-full max-w-4xl text-justify shadow-md">
+                    <p>
+                        EasySharing foi desenvolvido para solucionar a necessidade de um sistema simples
+                        para compartilhamento e armazenamento de documentos, fotos ou qualquer outro tipo
+                        de arquivo, sem a necessidade de acesso à rede externa.
+                        <br><br>
+                        Ou seja, foi especificamente criado para rodar em ambientes internos de trabalho
+                        e em redes domésticas.
+                        <br><br>
+                        A versão atual ainda está em desenvolvimento e não conta com todas as suas
+                        funcionalidades finais, sendo disponibilizada como uma versão gratuita.
+                    </p>
+                </div>
             </div>
 
         </div>

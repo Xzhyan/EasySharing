@@ -126,7 +126,13 @@ def delete_files(request):
 
 @login_required(login_url='user-login')
 def control(request):
-    return render(request, 'storage/control.html')
+    users = User.objects.all()
+
+    context = {
+        'users': users,
+    }
+    
+    return render(request, 'storage/control.html', context)
 
 @login_required(login_url='user-login')
 def actions(request):
