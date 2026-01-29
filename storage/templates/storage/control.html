@@ -3,7 +3,7 @@
 {% block content %}
 <div class="w-full h-full grid grid-cols-12 gap-2">
     <!-- Painel de configurações gerais -->
-    <div class="col-span-12 md:col-span-3 bg-stone-900 rounded-b-md p-2">
+    <div class="col-span-12 md:col-span-3 bg-stone-900 rounded-b-md p-2 max-h-[216px]">
         <h2 class="text-center font-medium mb-2">
             Painel Geral
         </h2>
@@ -32,141 +32,161 @@
     <div class="col-span-12 md:col-span-9 space-y-2">
         <!-- Card de configuração -->
         <div class="bg-stone-900 rounded-b-md p-2">
-            <!-- Usuários -->
-            <div id="users" class="menu-content block flex justify-center bg-stone-800 rounded-md shadow-md p-2">
-                <table class="w-full max-w-4xl text-center shadow-md">
-                    <thead class="bg-stone-950 text-xs sticky top-0 z-10 shadow-md">
-                        <tr>
-                            <th class="px-2 py-1">Usuário</th>
-                            <th class="px-2 py-1">Cargo</th>
-                            <th class="px-2 py-1">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-neutral-600 text-white">
-                        {% for user in users %}
+            <div class="bg-stone-800 rounded-md shadow-md p-2">
+                <!-- Usuários -->
+                <div id="users" class="menu-content block flex flex-col items-center">
+                    <h1 class="text-center font-semibold">Usuários Ativos</h1>
+                    <table class="w-full max-w-4xl text-center shadow-md">
+                        <thead class="bg-stone-950 text-xs sticky top-0 z-10 shadow-md">
+                            <tr>
+                                <th class="px-2 py-1">Usuário</th>
+                                <th class="px-2 py-1">Cargo</th>
+                                <th class="px-2 py-1">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-neutral-600 text-white">
+                            {% for user in users %}
+                            {% if user.is_active %}
                             <tr class="shadow-md hover:bg-neutral-700 cursor-pointer transition">
                                 <td class="px-2 py-1">{{ user.username }}</td>
                                 <td class="px-2 py-1">{{ user.role }}</td>
                                 <td class="px-2 py-1">Deletar</td>
                             </tr>
-                        {% empty %}
+                            {% endif %}
+                            {% empty %}
                             <tr>
                                 <td colspan="3" class="px-2 py-2 text-center text-neutral-400">
                                     Nenhum usuário encontrado...
                                 </td>
                             </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
 
-            <!-- Pastas -->
-            <div id="folders" class="menu-content hidden flex justify-center bg-stone-800 rounded-md shadow-md p-2">
-                <table class="w-full max-w-4xl text-center shadow-md">
-                    <thead class="bg-stone-950 text-xs sticky top-0 z-10 shadow-md">
-                        <tr>
-                            <th class="px-2 py-1">Usuário</th>
-                            <th class="px-2 py-1">Cargo</th>
-                            <th class="px-2 py-1">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-neutral-600 text-white">
-                        {% for user in folders %}
+                <!-- Pastas -->
+                <div id="folders" class="menu-content hidden flex justify-center">
+                    <table class="w-full max-w-4xl text-center shadow-md">
+                        <thead class="bg-stone-950 text-xs sticky top-0 z-10 shadow-md">
+                            <tr>
+                                <th class="px-2 py-1">Usuário</th>
+                                <th class="px-2 py-1">Cargo</th>
+                                <th class="px-2 py-1">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-neutral-600 text-white">
+                            {% for user in folders %}
                             <tr class="shadow-md hover:bg-neutral-700 cursor-pointer transition">
                                 <td class="px-2 py-1">{{ user.username }}</td>
                                 <td class="px-2 py-1">{{ user.role }}</td>
                                 <td class="px-2 py-1">Deletar</td>
                             </tr>
-                        {% empty %}
+                            {% empty %}
                             <tr>
                                 <td colspan="3" class="px-2 py-2 text-center text-neutral-400">
                                     Nenhuma pasta encontrada...
                                 </td>
                             </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
 
-            <!-- Equipes -->
-            <div id="teams" class="menu-content hidden flex justify-center bg-stone-800 rounded-md shadow-md p-2">
-                <table class="w-full max-w-4xl text-center shadow-md">
-                    <thead class="bg-stone-950 text-xs sticky top-0 z-10 shadow-md">
-                        <tr>
-                            <th class="px-2 py-1">Usuário</th>
-                            <th class="px-2 py-1">Cargo</th>
-                            <th class="px-2 py-1">Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-neutral-600 text-white">
-                        {% for user in teams %}
+                <!-- Equipes -->
+                <div id="teams" class="menu-content hidden flex justify-center">
+                    <table class="w-full max-w-4xl text-center shadow-md">
+                        <thead class="bg-stone-950 text-xs sticky top-0 z-10 shadow-md">
+                            <tr>
+                                <th class="px-2 py-1">Usuário</th>
+                                <th class="px-2 py-1">Cargo</th>
+                                <th class="px-2 py-1">Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-neutral-600 text-white">
+                            {% for user in teams %}
                             <tr class="shadow-md hover:bg-neutral-700 cursor-pointer transition">
                                 <td class="px-2 py-1">{{ user.username }}</td>
                                 <td class="px-2 py-1">{{ user.role }}</td>
                                 <td class="px-2 py-1">Deletar</td>
                             </tr>
-                        {% empty %}
+                            {% empty %}
                             <tr>
                                 <td colspan="3" class="px-2 py-2 text-center text-neutral-400">
                                     Nenhuma equipe encontrada...
                                 </td>
                             </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
 
-            <!-- Sobre -->
-            <div id="about" class="menu-content hidden flex justify-center bg-stone-800 rounded-md shadow-md p-2">
-                <div class="w-full max-w-4xl text-justify shadow-md">
-                    <p>
-                        EasySharing foi desenvolvido para solucionar a necessidade de um sistema simples
-                        para compartilhamento e armazenamento de documentos, fotos ou qualquer outro tipo
-                        de arquivo, sem a necessidade de acesso à rede externa.
-                        <br><br>
-                        Ou seja, foi especificamente criado para rodar em ambientes internos de trabalho
-                        e em redes domésticas.
-                        <br><br>
-                        A versão atual ainda está em desenvolvimento e não conta com todas as suas
-                        funcionalidades finais, sendo disponibilizada como uma versão gratuita.
-                    </p>
+                <!-- Sobre -->
+                <div id="about" class="menu-content hidden flex justify-center">
+                    <div class="w-full bg-stone-700 max-w-4xl text-justify text-white shadow-md rounded-md p-2">
+                        <p class="mx-4">
+                            EasySharing foi desenvolvido para solucionar a necessidade de um sistema simples
+                            para compartilhamento e armazenamento de documentos, fotos ou qualquer outro tipo
+                            de arquivo, sem a necessidade de acesso à rede externa.
+                            <br><br>
+                            Ou seja, foi especificamente criado para rodar em ambientes internos de trabalho
+                            e em redes domésticas.
+                            <br><br>
+                            A versão atual ainda está em desenvolvimento e não conta com todas as suas
+                            funcionalidades finais, sendo disponibilizada como uma versão gratuita.
+                        </p><br>
+
+                        <hr class="border-stone-400 w-full"><br>
+
+                        <p class="text-sm text-gray-300 text-center">
+                            Nome: EasySharing
+                            <br>
+                            Versão: 3.0 Lite gratuita
+                            <br>
+                            Idioma: Português Brasil
+                            <br>
+                            Código: Django, JavaScript, Tailwind
+                        </p><br>
+
+                        <hr class="border-stone-400 w-full"><br>
+
+                        <p class="text-sm text-center">&copy; Xzhyan, 2025</p>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
 <script>
-  const menuItems = document.querySelectorAll(".menu-item");
-  const contents = document.querySelectorAll(".menu-content");
+    const menuItems = document.querySelectorAll(".menu-item");
+    const contents = document.querySelectorAll(".menu-content");
 
-  menuItems.forEach(item => {
-    item.addEventListener("click", () => {
+    menuItems.forEach(item => {
+        item.addEventListener("click", () => {
 
-      const page = item.dataset.page;
+            const page = item.dataset.page;
 
-      // 1️⃣ Esconde todos os conteúdos
-      contents.forEach(content => {
-        content.classList.add("hidden");
-      });
+            // 1️⃣ Esconde todos os conteúdos
+            contents.forEach(content => {
+                content.classList.add("hidden");
+            });
 
-      // 2️⃣ Mostra o conteúdo correspondente
-      const activeContent = document.getElementById(page);
-      if (activeContent) {
-        activeContent.classList.remove("hidden");
-      }
+            // 2️⃣ Mostra o conteúdo correspondente
+            const activeContent = document.getElementById(page);
+            if (activeContent) {
+                activeContent.classList.remove("hidden");
+            }
 
-      // 3️⃣ Remove destaque de todos os botões
-      menuItems.forEach(btn => {
-        btn.classList.remove("bg-blue-800", "hover:bg-blue-600");
-        btn.classList.add("bg-stone-800", "hover:bg-stone-600");
-      });
+            // 3️⃣ Remove destaque de todos os botões
+            menuItems.forEach(btn => {
+                btn.classList.remove("bg-blue-800", "hover:bg-blue-600");
+                btn.classList.add("bg-stone-800", "hover:bg-stone-600");
+            });
 
-      // 4️⃣ Destaca o botão clicado
-      item.classList.remove("bg-stone-800", "hover:bg-stone-600");
-      item.classList.add("bg-blue-800", "hover:bg-blue-600");
+            // 4️⃣ Destaca o botão clicado
+            item.classList.remove("bg-stone-800", "hover:bg-stone-600");
+            item.classList.add("bg-blue-800", "hover:bg-blue-600");
+        });
     });
-  });
 </script>
 
 {% endblock %}

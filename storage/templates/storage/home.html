@@ -85,7 +85,7 @@
                 </div>
 
                 <!-- Tabela de arquivos, lista -->
-                <div class="rounded-md shadow-md mt-2 2xl:max-h-188 xl:max-h-122 overflow-y-auto">
+                <div class="shadow-md mt-2 2xl:max-h-188 xl:max-h-122 overflow-y-auto">
                     <table class="w-full text-center shadow-md">
                         <thead class="bg-stone-950 text-xs sticky top-0 z-10 shadow-md">
                             <tr>
@@ -101,16 +101,16 @@
                         </thead>
                         <tbody class="bg-neutral-600 text-white">
                             {% for archive in archives %}
-                                <tr class="shadow-md hover:bg-neutral-700 cursor-pointer transition">
-                                    <th class="px-2 py-1">
-                                        <input type="checkbox" name="selected" value="{{ archive.id }}"
-                                            class="checkbox cursor-pointer scale-130 translate-y-[2px] accent-green-700">
-                                    </th>
-                                    <td class="px-2 py-1">{{ archive.file_name }}</td>
-                                    <td class="px-2 py-1">{{ archive.owner_id }}</td>
-                                    <td class="px-2 py-1">{{ archive.modified_at }}</td>
-                                    <td class="px-2 py-1">{{ archive.size }}</td>
-                                </tr>
+                            <tr class="shadow-md hover:bg-neutral-700 cursor-pointer transition">
+                                <th class="px-2 py-1">
+                                    <input type="checkbox" name="selected" value="{{ archive.id }}"
+                                        class="checkbox cursor-pointer scale-130 translate-y-[2px] accent-green-700">
+                                </th>
+                                <td class="px-2 py-1">{{ archive.file_name }}</td>
+                                <td class="px-2 py-1">{{ archive.owner_id }}</td>
+                                <td class="px-2 py-1">{{ archive.modified_at }}</td>
+                                <td class="px-2 py-1">{{ archive.size }}</td>
+                            </tr>
                             {% endfor %}
                         </tbody>
                     </table>

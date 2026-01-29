@@ -20,14 +20,14 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(username, password, role='admin', **extra_fields)
     
 class CustomUser(AbstractBaseUser, PermissionsMixin):
-    ROLE_CHOICES = (
+    ROLE_CHOICES = [
         ('admin', "Administrador"),
         ('default', "Usuário Padrão")
-    )
+    ]
 
     username = models.CharField(max_length=200, unique=True)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES)
-    is_active = models.BooleanField(default=True)
+    is_active = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
 
     objects = CustomUserManager()
@@ -41,6 +41,22 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     @property
     def is_staff(self):
         return self.is_admin
+    
+class Notification(models.Model):
+    NOTIFICATION_TYPES = [
+        ('message', "Menssagem"),
+        ('user_type', "Usuários"),
+        ('folder_type', "Pastas"),
+        ('team_type', "Equipes")
+    ]
+
+    notification_type = models.CharField(max_length=100, choices=NOTIFICATION_TYPES, default='message')
+    sent_by = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, related_name='notifications_sent')
+    sent_to = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, default='admin', related_name='notifications_received')
+    msg_text = models.TextField(max_length=200)
+
+    def __str__(self):
+        return self.notification_type
 
 # class Team(models.Model):
 #     team_name = models.CharField(max_length=200)
