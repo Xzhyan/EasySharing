@@ -13,13 +13,9 @@
                 class="menu-item p-2 rounded-md shadow-md bg-blue-800 transition cursor-pointer">
                 Usuários
             </li>
-            <li id="toggle_btn" data-page="folders"
+            <li id="toggle_btn" data-page="mail_box"
                 class="menu-item p-2 rounded-md shadow-md bg-stone-800 transition cursor-pointer">
-                Pastas
-            </li>
-            <li id="toggle_btn" data-page="teams"
-                class="menu-item p-2 rounded-md shadow-md bg-stone-800 transition cursor-pointer">
-                Equipes
+                Caixa de Mensagens
             </li>
             <li id="toggle_btn" data-page="about"
                 class="menu-item p-2 rounded-md shadow-md bg-stone-800 transition cursor-pointer">
@@ -44,75 +40,37 @@
                                 <th class="px-2 py-1">Ações</th>
                             </tr>
                         </thead>
+                        {% for user in users %}
                         <tbody class="bg-neutral-600 text-white">
-                            {% for user in users %}
-                            {% if user.is_active %}
                             <tr class="shadow-md hover:bg-neutral-700 cursor-pointer transition">
                                 <td class="px-2 py-1">{{ user.username }}</td>
                                 <td class="px-2 py-1">{{ user.role }}</td>
-                                <td class="px-2 py-1">Deletar</td>
+                                <td class="px-2 py-1">Ações</td>
                             </tr>
-                            {% endif %}
-                            {% empty %}
-                            <tr>
-                                <td colspan="3" class="px-2 py-2 text-center text-neutral-400">
-                                    Nenhum usuário encontrado...
-                                </td>
-                            </tr>
-                            {% endfor %}
                         </tbody>
+                        {% endfor %}
                     </table>
                 </div>
 
-                <!-- Pastas -->
-                <div id="folders" class="menu-content hidden flex justify-center">
+                <!-- Caixa de mensagens -->
+                <div id="mail_box" class="menu-content hidden flex justify-center">
                     <table class="w-full max-w-4xl text-center shadow-md">
                         <thead class="bg-stone-950 text-xs sticky top-0 z-10 shadow-md">
                             <tr>
-                                <th class="px-2 py-1">Usuário</th>
-                                <th class="px-2 py-1">Cargo</th>
-                                <th class="px-2 py-1">Ações</th>
+                                <th class="px-2 py-1">Enviado por</th>
+                                <th class="px-2 py-1">Texo</th>
                             </tr>
                         </thead>
                         <tbody class="bg-neutral-600 text-white">
                             {% for user in folders %}
                             <tr class="shadow-md hover:bg-neutral-700 cursor-pointer transition">
-                                <td class="px-2 py-1">{{ user.username }}</td>
-                                <td class="px-2 py-1">{{ user.role }}</td>
-                                <td class="px-2 py-1">Deletar</td>
+                                <td class="px-2 py-1">root</td>
+                                <td class="px-2 py-1">Texto</td>
                             </tr>
                             {% empty %}
                             <tr>
                                 <td colspan="3" class="px-2 py-2 text-center text-neutral-400">
-                                    Nenhuma pasta encontrada...
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Equipes -->
-                <div id="teams" class="menu-content hidden flex justify-center">
-                    <table class="w-full max-w-4xl text-center shadow-md">
-                        <thead class="bg-stone-950 text-xs sticky top-0 z-10 shadow-md">
-                            <tr>
-                                <th class="px-2 py-1">Usuário</th>
-                                <th class="px-2 py-1">Cargo</th>
-                                <th class="px-2 py-1">Ações</th>
-                            </tr>
-                        </thead>
-                        <tbody class="bg-neutral-600 text-white">
-                            {% for user in teams %}
-                            <tr class="shadow-md hover:bg-neutral-700 cursor-pointer transition">
-                                <td class="px-2 py-1">{{ user.username }}</td>
-                                <td class="px-2 py-1">{{ user.role }}</td>
-                                <td class="px-2 py-1">Deletar</td>
-                            </tr>
-                            {% empty %}
-                            <tr>
-                                <td colspan="3" class="px-2 py-2 text-center text-neutral-400">
-                                    Nenhuma equipe encontrada...
+                                    Nenhuma mensagem encontrada...
                                 </td>
                             </tr>
                             {% endfor %}
