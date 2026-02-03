@@ -1,16 +1,17 @@
 {% extends 'base.html' %}
-{% block title %} EasySharing - Acesso {% endblock %}
+{% block title %} EasySharing - Registro {% endblock %}
 {% block content %}
 <div class="flex justify-center">
     <div class="w-full max-w-5xl bg-stone-900 shadow-md rounded-b-md grid grid-cols-5">
         <!-- Card de apresentação -->
         <div class="col-span-3 border-r-2 border-stone-950 p-4 space-y-6">
             <!-- Texto principal -->
-            <h1 class="font-semibold text-lg text-center">Bem-vindo ao EasySharing</h1>
+            <h1 class="font-semibold text-lg text-center">ATENÇÃO !!!</h1>
             <p class="text-justify text-gray-500">
-                Desenvolvido para ser utilizado em ambientes internos de trabalho ou domésticos, o sistema tem como
-                objetivo facilitar a transferência, o compartilhamento e o armazenamento de arquivos sem a necessidade
-                de acesso a conexões externas.
+                Ao cadastrar seu nome de usuário e senha, uma notificação será enviada ao administrador do sistema, que
+                analisará e autorizará seu acesso.
+                <br>
+                Por favor, aguarde pacientemente até que esse processo seja concluído.
             </p><br>
 
             <hr class="border-stone-700 w-full">
@@ -25,9 +26,12 @@
             <form method="POST" enctype="multipart/form-data" name="form_type" value="login_form">
                 {% csrf_token %}
                 <div class="flex flex-col items-center gap-6">
-                    <h1 class="text-lg text-center font-semibold">Acessar</h1>
+                    <h1 class="text-lg text-center font-semibold">Registrar-se</h1>
+
+                    <!-- Inserir nome de usuário -->
                     {{ form.username }}
 
+                    <!-- Inserir a senha -->
                     <div class="flex flex-row w-full items-center">
                         {{ form.password }}
                         <div id="toggle_password">
@@ -51,18 +55,21 @@
                         </div>
                     </div>
 
-                    <a href="#" class="text-sm text-cyan-500 hover:text-cyan-400 transition">Esqueceu sua senha?</a>
+                    <!-- Repetir a senha -->
+                    <div class="flex flex-row w-full items-center">
+                        {{ form.repeat_password }}
+                    </div>
 
                     <button type="submit"
                         class="w-full max-w-[80px] font-semibold bg-green-800 hover:bg-green-600 p-2 rounded-md shadow-md transition cursor-pointer">
-                        Acessar
+                        Registrar
                     </button>
 
                     <hr class="border-stone-700 w-full">
 
-                    <a href="{% url 'user-register' %}"
-                        class="text-sm text-yellow-500 hover:text-yellow-400 transition">
-                        Não possuí login? Solicite seu acesso aqui...
+                    <a href="{% url 'user-login' %}"
+                        class="w-full max-w-[80px] font-semibold bg-blue-800 hover:bg-blue-600 p-2 rounded-md shadow-md transition cursor-pointer text-center">
+                        Acessar
                     </a>
                 </div>
             </form>

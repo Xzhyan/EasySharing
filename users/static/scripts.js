@@ -105,9 +105,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+// Mostrar e ocultar senha
 document.addEventListener("DOMContentLoaded", () => {
   const toggle = document.getElementById("toggle_password");
   const input = document.getElementById("id_password");
+  const inputRepeat = document.getElementById("id_repeat_password");
   const iconShow = document.getElementById("icon_show");
   const iconHide = document.getElementById("icon_hide");
 
@@ -115,6 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   toggle.addEventListener("click", () => {
     input.type = input.type === "password" ? "text" : "password";
+    inputRepeat.type = inputRepeat.type === "password" ? "text" : "password";
 
     if (iconShow.style.display === "block") {
       iconShow.style.display = "none";
