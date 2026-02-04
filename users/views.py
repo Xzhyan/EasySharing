@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 
 # Auth, login e register
 from django.contrib.auth import authenticate, login, get_user_model, logout
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm, UserEditForm
 
 User = get_user_model()
 
@@ -39,7 +39,7 @@ def user_login(request):
             print('Formulário inválido!')
     else:
         form = LoginForm()
-    
+
     return render(request, 'users/login.html', {'form': form})
 
 def user_register(request):
@@ -74,3 +74,41 @@ def user_logout(request):
     logout(request)
     messages.info(request, "Você saiu do sistema!")
     return redirect('user-login')
+
+def user_edit(request, pk):
+    user = get_object_or_404(User, pk=pk)
+    
+    if request.method == 'POST':
+        form = UserEditForm(request.POST, instance=user)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Usuário modificado com sucesso!")
+            return redirect('control')
+        
+        else:
+            messages.error(request, f"Não foi possível modificar o Usuário. Erro: {form.errros}")
+
+    else:
+        form = UserEditForm(instance=user)
+
+        context = {
+            'user': user,
+            'form': form
+        }
+
+    return render(request, 'users/edit.html', context)
+
+def user_delete(request):
+    if request.method == 'POST':
+        user_id = request.POST.get('user_id')
+        user = get_object_or_404(User, pk=user_id)
+        try:
+            user.delete()
+        
+        except Exception as e:
+            messages.error(request, f"Erro: {e}")
+
+        messages.success(request, 'Usuário removido com sucesso.')
+
+    return redirect('control')

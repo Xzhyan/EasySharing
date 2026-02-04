@@ -128,8 +128,18 @@ def delete_files(request):
 def control(request):
     users = User.objects.all()
 
+    actives = []
+    inactives = []
+
+    for user in users:
+        if user.is_active:
+            actives.append(user)
+        else:
+            inactives.append(user)
+
     context = {
-        'users': users,
+        'actives': actives,
+        'inactives': inactives
     }
     
     return render(request, 'storage/control.html', context)
