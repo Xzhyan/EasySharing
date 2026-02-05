@@ -10,3 +10,15 @@ Sendo uma evolução do meu antigo projeto FileBrowserDjango o sistema inda esta
 ![Descrição da imagem](bin/imgs/easysharing.png)
 
 ---
+
+Correções de segurança e Robustes
+
+1. Login:
+
+2. Autenticaçõa e Autorizações
+
+3. Paginas e Views
+
+- verificar os decoradores de permissão e acesso as paginas do sistema
+- verificar segurança no templete e views
+- segurnça do java script

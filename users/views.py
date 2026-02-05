@@ -1,11 +1,10 @@
-from django.shortcuts import get_object_or_404, render, redirect
-from django.contrib import messages
-
-# Auth, login e register
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, get_user_model, logout
+from django.contrib import messages
 from .forms import LoginForm, RegisterForm, UserEditForm
 
 User = get_user_model()
+
 
 def user_login(request):
     if request.method == 'POST':
@@ -23,7 +22,7 @@ def user_login(request):
             
             if user_obj == None:
                 messages.info(request, "O usuário informado não existe!")
-                
+
             else:
                 user = authenticate(request, username=username, password=password)
                 
@@ -37,47 +36,46 @@ def user_login(request):
         
         else:
             print('Formulário inválido!')
+
     else:
         form = LoginForm()
 
     return render(request, 'users/login.html', {'form': form})
+
 
 def user_register(request):
     if request.method == 'POST':
         form = RegisterForm(request.POST)
 
         if form.is_valid():
-            username = form.cleaned_data['username']
-            password = form.cleaned_data['password']
-            repeat_password = form.cleaned_data['repeat_password']
-
-            if password != repeat_password:
-                messages.error(request, "As senhas não coicidem!")
-
-            elif User.objects.filter(username=username).exists():
-                messages.error(request, "Este nome de usuário já existe!")
-            
-            else:
-                user = User.objects.create_user(username=username, password=password, role='default')
-                messages.success(request, "Acesso solicitado com sucesso!")
-                return redirect('user-login')
-
+            User.objects.create_user(
+                username = form.cleaned_data['username'],
+                password = form.cleaned_data['password'],
+                role = 'default'
+            )
+            messages.success(request, "Acesso solicitado com sucesso!")
+            return redirect('user-login')
+        
         else:
-            print('Formulário inválido!')
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, error)
 
     else:
         form = RegisterForm()
 
     return render(request, 'users/register.html', {'form': form})
 
+
 def user_logout(request):
     logout(request)
     messages.info(request, "Você saiu do sistema!")
     return redirect('user-login')
 
+
 def user_edit(request, pk):
     user = get_object_or_404(User, pk=pk)
-    
+
     if request.method == 'POST':
         form = UserEditForm(request.POST, instance=user)
 
@@ -87,15 +85,17 @@ def user_edit(request, pk):
             return redirect('control')
         
         else:
-            messages.error(request, f"Não foi possível modificar o Usuário. Erro: {form.errros}")
-
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, error)
+        
     else:
         form = UserEditForm(instance=user)
 
-        context = {
-            'user': user,
-            'form': form
-        }
+    context = {
+        'user': user,
+        'form': form
+    }
 
     return render(request, 'users/edit.html', context)
 

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 
+
 class CustomUserManager(BaseUserManager):
     def create_user(self, username, password=None, role='default', **extra_fields):
         """Cria usuário personalizado no sistema"""
@@ -18,7 +19,8 @@ class CustomUserManager(BaseUserManager):
         extra_fields.setdefault('is_admin', True)
         extra_fields.setdefault('is_superuser', True)
         return self.create_user(username, password, role='admin', **extra_fields)
-    
+
+
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     ROLE_CHOICES = [
         ('admin', "Administrador"),
@@ -41,7 +43,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     @property
     def is_staff(self):
         return self.is_admin
-    
+
+
 class Notification(models.Model):
     NOTIFICATION_TYPES = [
         ('message', "Menssagem"),
@@ -57,6 +60,7 @@ class Notification(models.Model):
 
     def __str__(self):
         return self.notification_type
+
 
 # class Team(models.Model):
 #     team_name = models.CharField(max_length=200)

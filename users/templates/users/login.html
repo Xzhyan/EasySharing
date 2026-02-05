@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% block title %} EasySharing - Acesso {% endblock %}
+
+<!-- Conteúdo da página -->
 {% block content %}
 <div class="flex justify-center">
     <div class="w-full max-w-5xl bg-stone-900 shadow-md rounded-b-md grid grid-cols-5">
@@ -22,12 +24,15 @@
 
         <!-- Card de Login -->
         <div class="col-span-2 border-l-2 border-stone-950 p-4">
-            <form method="POST" enctype="multipart/form-data" name="form_type" value="login_form">
+            <form method="POST">
                 {% csrf_token %}
                 <div class="flex flex-col items-center gap-6">
                     <h1 class="text-lg text-center font-semibold">Acessar</h1>
+
+                    <!-- Input do nome de usuário -->
                     {{ form.username }}
 
+                    <!-- Input de senha e confirmar senha com ocultar e mostrar -->
                     <div class="flex flex-row w-full items-center">
                         {{ form.password }}
                         <div id="toggle_password">
@@ -51,6 +56,7 @@
                         </div>
                     </div>
 
+                    <!-- Link para a página de mudar senha -->
                     <a href="#" class="text-sm text-cyan-500 hover:text-cyan-400 transition">Esqueceu sua senha?</a>
 
                     <button type="submit"
@@ -60,6 +66,7 @@
 
                     <hr class="border-stone-700 w-full">
 
+                    <!-- Link para a página de solicitar acesso/registrar -->
                     <a href="{% url 'user-register' %}"
                         class="text-sm text-yellow-500 hover:text-yellow-400 transition">
                         Não possuí login? Solicite seu acesso aqui...
