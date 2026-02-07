@@ -48,19 +48,19 @@
                     <!-- Pesquisa -->
                     <div class="p-2">
                         <input id="search-files" type="text" placeholder="Procurar arquivos..."
-                            class="w-full outline-none bg-stone-900 hover:bg-stone-700 px-2 py-2 rounded-sm shadow-md transition">
+                            class="w-full outline-none bg-stone-900 hover:bg-stone-700 p-2 rounded-sm shadow-md transition">
                     </div>
 
                     <!-- Ações -->
-                    <div class="flex p-2 gap-2 shadow-md">
+                    <div class="flex justify-end p-2 gap-2 shadow-md">
                         <span id="selected-items"
-                            class="bg-stone-900 shadow-md rounded-md text-green-600 w-[40px] text-center py-2 text-lg">
+                            class="bg-stone-900 shadow-md rounded-md text-green-600 w-[40px] h-[40px] text-center p-1.5 text-lg">
                             0
                         </span>
 
                         <!-- Download -->
                         <button type="submit" name="action" value="download"
-                            class="bg-blue-800 shadow-md rounded-md hover:bg-blue-600 cursor-pointer transition text-white p-2">
+                            class="bg-blue-800 shadow-md rounded-md hover:bg-blue-600 cursor-pointer p-2 transition text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round">
@@ -72,7 +72,7 @@
 
                         <!-- Deletar -->
                         <button type="submit" name="action" value="delete"
-                            class="bg-red-800 shadow-md rounded-md hover:bg-red-600 cursor-pointer transition text-white p-2">
+                            class="bg-red-800 shadow-md rounded-md hover:bg-red-600 cursor-pointer p-2 transition text-white">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                                 fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                                 stroke-linejoin="round">
@@ -101,9 +101,9 @@
                                 <th class="px-4 py-2">Tamanho</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-neutral-600 text-white">
+                        <tbody class="bg-neutral-300 text-black">
                             {% for archive in archives %}
-                            <tr class="shadow-md hover:bg-neutral-700 cursor-pointer transition">
+                            <tr class="shadow-md hover:bg-neutral-400 cursor-pointer transition">
                                 <th class="px-4 py-2">
                                     <input type="checkbox" name="selected" value="{{ archive.id }}"
                                         class="checkbox cursor-pointer scale-160 translate-y-[2px] accent-green-700">
