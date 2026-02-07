@@ -1,5 +1,14 @@
 from django.db import models
 from django.conf import settings
+from django.core.files.storage import FileSystemStorage
+
+
+class OverwriteStorage(FileSystemStorage):
+    def get_available_name(self, name, max_length=None):
+        if self.exists(name):
+            self.delete(name)
+        return name
+
 
 class Team(models.Model):
     team_name = models.CharField(max_length=100)
@@ -20,7 +29,7 @@ class Folder(models.Model):
         return self.folder_name
 
 class Archive(models.Model):
-    archive = models.FileField(upload_to='main/')
+    archive = models.FileField(upload_to='main/', storage=OverwriteStorage())
     file_name = models.CharField(max_length=200, unique=True)
     owner_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
     size = models.FloatField()

@@ -4,14 +4,9 @@ register = template.Library()
 
 @register.filter
 def format_size(value):
-    if value < 1.0:
-        value = f'{value} KBs'
-        return value
-
-    elif value > 1.0:
-        value = f'{value} MBs'
-        return value
-
-    elif value > 1024:
-        value = f'{value} GBs'
-        return value
+    size = float(value)
+    for unit in ['KB', 'MB', 'GB', 'TB']:
+        size /= 1024
+        if size < 1024:
+            return f"{size:.2f} {unit}"
+    return f"{size:.2f} PB"

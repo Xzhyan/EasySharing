@@ -99,10 +99,12 @@ def user_edit(request, pk):
 
     return render(request, 'users/edit.html', context)
 
+
 def user_delete(request):
     if request.method == 'POST':
         user_id = request.POST.get('user_id')
         user = get_object_or_404(User, pk=user_id)
+        
         try:
             user.delete()
         

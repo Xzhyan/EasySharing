@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 {% block title %} EasySharing - Controle {% endblock %}
+
+<!-- Conteúdo da página -->
 {% block content %}
 <div class="w-full h-full grid grid-cols-12 gap-2">
     <!-- Painel de configurações gerais -->
@@ -63,7 +65,7 @@
                                         {% csrf_token %}
                                         <input type="number" , name="user_id" , value="{{ user.id }}" class="hidden">
 
-                                        <button type="submit" name="action" value="delete"
+                                        <button type="submit"
                                             class="bg-red-800 shadow-md rounded-md hover:bg-red-600 cursor-pointer transition text-white p-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -120,7 +122,7 @@
                                         {% csrf_token %}
                                         <input type="number" , name="user_id" , value="{{ user.id }}" class="hidden">
 
-                                        <button type="submit" name="action" value="delete"
+                                        <button type="submit"
                                             class="bg-red-800 shadow-md rounded-md hover:bg-red-600 cursor-pointer transition text-white p-2">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                                 viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -215,27 +217,26 @@
 
     menuItems.forEach(item => {
         item.addEventListener("click", () => {
-
             const page = item.dataset.page;
 
-            // 1️⃣ Esconde todos os conteúdos
+            // Esconde todos os conteúdos
             contents.forEach(content => {
                 content.classList.add("hidden");
             });
 
-            // 2️⃣ Mostra o conteúdo correspondente
+            // Mostra o conteúdo correspondente
             const activeContent = document.getElementById(page);
             if (activeContent) {
                 activeContent.classList.remove("hidden");
             }
 
-            // 3️⃣ Remove destaque de todos os botões
+            // Remove destaque de todos os botões
             menuItems.forEach(btn => {
                 btn.classList.remove("bg-blue-800", "hover:bg-blue-600");
                 btn.classList.add("bg-stone-800", "hover:bg-stone-600");
             });
 
-            // 4️⃣ Destaca o botão clicado
+            // Destaca o botão clicado
             item.classList.remove("bg-stone-800", "hover:bg-stone-600");
             item.classList.add("bg-blue-800", "hover:bg-blue-600");
         });

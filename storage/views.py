@@ -26,19 +26,15 @@ def upload_files(request):
         return
     
     for file_obj in file_list:
-        size_bytes = file_obj.size
-        size_mb = round(size_bytes / (1024 * 1024), 2)
-
         try:
-            save_file, created = Archive.objects.update_or_create(
-                archive = file_obj,
-                file_name = file_obj.name,
-                size = size_mb,
+            save_file = Archive.objects.update_or_create(
+                file_name = file_obj,
+                defaults={
+                    'archive': file_obj,
+                    'owner_id': file_owner,
+                    'size': file_obj.size
+                }
             )
-
-            if created:
-                save_file.owner_id = file_owner
-                save_file.save()
 
         except IntegrityError:
             messages.error(request, "Erro de integridade no banco de dados.")
@@ -122,6 +118,7 @@ def delete_files(request):
     messages.success(request, "Arquivo(s) deletado(s) com sucesso!")
     return
 
+
 # ------- Views -------
 
 @login_required(login_url='user-login')
@@ -144,6 +141,7 @@ def control(request):
     
     return render(request, 'storage/control.html', context)
 
+
 @login_required(login_url='user-login')
 def actions(request):
     if request.method != 'POST':
@@ -164,6 +162,7 @@ def actions(request):
         delete_files(request)
 
     return redirect('main')
+
 
 @login_required(login_url='user-login')
 def main_storage(request):
