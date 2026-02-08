@@ -114,3 +114,10 @@ def user_delete(request):
         messages.success(request, 'Usuário removido com sucesso.')
 
     return redirect('control')
+
+
+def user_create(request):
+    form = RegisterForm()
+    return render(request, 'users/create.html', {'form': form})
+
+
