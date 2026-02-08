@@ -52,7 +52,7 @@ git clone https://github.com/Xzhyan/EasySharing.git
 3. Acesse a pasta raiz.
 
 ```bash
-cd EasySharing.git
+cd EasySharing
 ```
 
 4. Crie um ambiente virtual python
@@ -110,17 +110,3 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.3.33']
 ---
 
 ## Creditos
-
----
-
-```
-
-```
-
-```
-
-```
-
-```
-
-```
