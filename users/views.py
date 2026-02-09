@@ -2,6 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.contrib import messages
 from .forms import LoginForm, RegisterForm, UserEditForm
+from django.contrib.auth.decorators import login_required
+
+from .utils.custom_decorators import check_permission
 
 User = get_user_model()
 
@@ -43,26 +46,32 @@ def user_login(request):
     return render(request, 'users/login.html', {'form': form})
 
 
+def create_new_user(request, redirect_to, msg_text):
+    """Função criar um usuário, usada tanto na view user_register quanto na view user_create"""
+    form = RegisterForm(request.POST)
+
+    if form.is_valid():
+        User.objects.create_user(
+            username = form.cleaned_data['username'],
+            password = form.cleaned_data['password'],
+            role = 'default'
+        )
+        messages.success(request, msg_text)
+        return redirect(redirect_to)
+    
+    else:
+        for field, errors in form.errors.items():
+            for error in errors:
+                messages.error(request, error)
+
+
 def user_register(request):
     if request.method == 'POST':
-        form = RegisterForm(request.POST)
+        redirect_to = 'user-login'
+        msg_text = "Acesso solicitado com sucesso."
+        create_new_user(request, redirect_to, msg_text)
 
-        if form.is_valid():
-            User.objects.create_user(
-                username = form.cleaned_data['username'],
-                password = form.cleaned_data['password'],
-                role = 'default'
-            )
-            messages.success(request, "Acesso solicitado com sucesso!")
-            return redirect('user-login')
-        
-        else:
-            for field, errors in form.errors.items():
-                for error in errors:
-                    messages.error(request, error)
-
-    else:
-        form = RegisterForm()
+    form = RegisterForm()
 
     return render(request, 'users/register.html', {'form': form})
 
@@ -73,6 +82,8 @@ def user_logout(request):
     return redirect('user-login')
 
 
+@login_required(login_url='user-login')
+@check_permission('control')
 def user_edit(request, pk):
     user = get_object_or_404(User, pk=pk)
 
@@ -100,6 +111,8 @@ def user_edit(request, pk):
     return render(request, 'users/edit.html', context)
 
 
+@login_required(login_url='user-login')
+@check_permission('control')
 def user_delete(request):
     if request.method == 'POST':
         user_id = request.POST.get('user_id')
@@ -116,8 +129,15 @@ def user_delete(request):
     return redirect('control')
 
 
+@login_required(login_url='user-login')
+@check_permission('control')
 def user_create(request):
-    form = RegisterForm()
-    return render(request, 'users/create.html', {'form': form})
+    if request.method == 'POST':
+        redirect_to = 'control'
+        msg_text = "Novo usuário criado com sucesso."
+        create_new_user(request, redirect_to, msg_text)
 
+    form = RegisterForm()
+
+    return render(request, 'users/create.html', {'form': form})
 

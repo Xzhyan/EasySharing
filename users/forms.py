@@ -45,12 +45,12 @@ class RegisterForm(forms.Form):
             "autocomplete": "current-password",
         })
     )
-    role = forms.ChoiceField(
-        choices=User.ROLE_CHOICES,
-        widget=forms.Select(attrs={
-            'class': "w-full max-w-sm bg-stone-900 hover:bg-stone-800 rounded-md p-2 shadow-md outline-none text-sm"
-        })
-    )
+    # role = forms.ChoiceField(
+    #     choices=User.ROLE_CHOICES,
+    #     widget=forms.Select(attrs={
+    #         'class': "w-full max-w-sm bg-stone-900 hover:bg-stone-800 rounded-md p-2 shadow-md outline-none text-sm"
+    #     })
+    # )
 
     def clean_username(self):
         username = self.cleaned_data['username']

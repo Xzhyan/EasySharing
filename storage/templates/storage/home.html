@@ -101,17 +101,17 @@
                                 <th class="px-4 py-2">Tamanho</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-neutral-300 text-black">
+                        <tbody class="bg-stone-300 text-black">
                             {% for archive in archives %}
-                            <tr class="hover:bg-neutral-400 cursor-pointer transition border-2 border-neutral-200 shadow-md">
+                            <tr class="hover:bg-stone-200 cursor-pointer transition border-2 border-gray-400 shadow-md">
                                 <th class="px-4 py-2">
                                     <input type="checkbox" name="selected" value="{{ archive.id }}"
                                         class="checkbox cursor-pointer scale-160 translate-y-[2px] accent-green-700">
                                 </th>
-                                <td class="px-4 py-2">{{ archive.file_name }}</td>
-                                <td class="px-4 py-2">{{ archive.owner_id }}</td>
-                                <td class="px-4 py-2">{{ archive.modified_at|date:"d/m/Y H:i" }}</td>
-                                <td class="px-4 py-2">{{ archive.size|format_size }}</td>
+                                <td class="px-4 py-2.5">{{ archive.file_name }}</td>
+                                <td class="px-4 py-2.5">{{ archive.owner_id }}</td>
+                                <td class="px-4 py-2.5">{{ archive.modified_at|date:"d/m/Y H:i" }}</td>
+                                <td class="px-4 py-2.5">{{ archive.size|format_size }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>

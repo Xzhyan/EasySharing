@@ -7,7 +7,7 @@
     <!-- Painel de configurações gerais -->
     <div class="col-span-12 md:col-span-3 bg-stone-900 rounded-b-md p-2 h-[216px]">
         <h2 class="text-center font-medium mb-2">
-            Painel Geral
+            Painel de Controle
         </h2>
 
         <ul class="space-y-2 text-sm text-center text-white">
@@ -32,6 +32,7 @@
         <div class="bg-stone-900 rounded-b-md p-2">
             <div class="bg-stone-800 rounded-md shadow-md p-2">
                 <!-- Usuários -->
+                {% if user.is_admin %}
                 <div id="users" class="menu-content block flex flex-col items-center gap-2">
                     <div class="w-full bg-stone-800 grid grid-cols-2 rounded-md shadow-md">
                         <!-- Pesquisa -->
@@ -60,9 +61,9 @@
                                 <th class="px-2 py-1">Ações</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-neutral-300 text-black">
+                        <tbody class="bg-stone-300 text-black">
                             {% for user in actives %}
-                            <tr class="hover:bg-neutral-400 cursor-pointer transition border-2 border-neutral-200 shadow-md">
+                            <tr class="hover:bg-stone-200 cursor-pointer transition border-2 border-gray-400 shadow-md">
                                 <td class="px-2 py-1">{{ user.username }}</td>
                                 <td class="px-2 py-1">{{ user.role }}</td>
                                 <td class="px-2 py-1 space-x-2 flex items-center justify-center">
@@ -117,9 +118,9 @@
                                 <th class="px-2 py-1">Ações</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-neutral-300 text-black">
+                        <tbody class="bg-stone-300 text-black">
                             {% for user in inactives %}
-                            <tr class="shadow-md hover:bg-neutral-400 cursor-pointer transition">
+                            <tr class="hover:bg-stone-200 cursor-pointer transition border-2 border-gray-400 shadow-md">
                                 <td class="px-2 py-1">{{ user.username }}</td>
                                 <td class="px-2 py-1">{{ user.role }}</td>
                                 <td class="px-2 py-1 space-x-2 flex items-center justify-center">
@@ -164,6 +165,11 @@
                         </tbody>
                     </table>
                 </div>
+                {% endif %}
+
+                {% if not user.is_admin %}
+                <p>Sem autorização</p>
+                {% endif %}
 
                 <!-- Notificações -->
                 <div id="mail_box" class="menu-content hidden flex flex-col justify-center items-center gap-2">
@@ -194,7 +200,8 @@
                         </thead>
                         <tbody class="bg-neutral-300 text-white">
                             {% for user in folders %}
-                            <tr class="hover:bg-neutral-400 cursor-pointer transition border-2 border-neutral-200 shadow-md">
+                            <tr
+                                class="hover:bg-neutral-400 cursor-pointer transition border-2 border-neutral-200 shadow-md">
                                 <td class="px-2 py-1">root</td>
                                 <td class="px-2 py-1">Texto</td>
                             </tr>
@@ -224,7 +231,7 @@
                             funcionalidades finais, sendo disponibilizada como uma versão gratuita.
                             <br><br>
                             Após o lançamento da versão atual, uma nova versão aprimorada será desenvolvida usando React
-                            para melhor dinâmica e maior robustez; esta versão também será paga!
+                            para melhor dinâmica e maior robustez; Uma versão comercial!
                         </p><br>
 
                         <hr class="border-stone-400 w-full"><br>
