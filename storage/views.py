@@ -6,7 +6,7 @@ from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
 
 # Models
-from .models import Archive
+from .models import Archive, Folder
 
 # Usos especificos
 from io import BytesIO
@@ -165,10 +165,19 @@ def actions(request):
 
 
 @login_required(login_url='user-login')
-def main_storage(request):
+def main_storage(request, folder_id):
     """
     Pra não confundir, usei 'archive' para os arquivos listados no frotend
     e 'file_list' para a lista de arquivos que vão ser tratados como upload, delete, download e outros.
     """
-    archives = Archive.objects.all()
-    return render(request, 'storage/home.html', {'archives': archives})
+
+    archives = Archive.objects.filter(folder_id=folder_id)
+
+    folders = Folder.objects.filter(owner_id=request.user.id)
+
+    context = {
+        'archives': archives,
+        'folders': folders
+    }
+
+    return render(request, 'storage/home.html', context)

@@ -32,8 +32,8 @@
         <div class="bg-stone-900 rounded-b-md p-2">
             <div class="bg-stone-800 rounded-md shadow-md p-2">
                 <!-- Usuários -->
-                {% if user.is_admin %}
                 <div id="users" class="menu-content block flex flex-col items-center gap-2">
+                    {% if user.is_admin %}
                     <div class="w-full bg-stone-800 grid grid-cols-2 rounded-md shadow-md">
                         <!-- Pesquisa -->
                         <div class="p-2">
@@ -164,12 +164,11 @@
                             {% endfor %}
                         </tbody>
                     </table>
+                    {% endif %}
+                    {% if not user.is_admin %}
+                        <p>Sem autorização</p>
+                    {% endif %}
                 </div>
-                {% endif %}
-
-                {% if not user.is_admin %}
-                <p>Sem autorização</p>
-                {% endif %}
 
                 <!-- Notificações -->
                 <div id="mail_box" class="menu-content hidden flex flex-col justify-center items-center gap-2">

@@ -6,7 +6,7 @@
 {% block content %}
 <div class="grid grid-cols-1 md:grid-cols-8 gap-2">
     <!-- Painel de controle -->
-    <div class="md:col-span-2 bg-stone-900 text-center py-2 rounded-b-md shadow-md max-h-[198px]">
+    <div class="md:col-span-2 bg-stone-900 text-center py-2 rounded-b-md shadow-md ">
         <h2 class="text-center font-medium mb-2">
             Upload de arquivos...
         </h2>
@@ -31,6 +31,13 @@
                     Enviar
                 </button>
             </form>
+        </div>
+
+        <!-- Patas do usuário -->
+        <div>
+            {% for folder in folders %}
+                <p>{{ folder.folder_name }}</p>
+            {% endfor %}
         </div>
     </div>
 
