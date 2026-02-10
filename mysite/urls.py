@@ -7,5 +7,5 @@ urlpatterns = [
 
     # Rotas do sistema
     path('', include('users.urls')),
-    path('storage/', include('storage.urls')),
+    path('', include('storage.urls')),
 ]

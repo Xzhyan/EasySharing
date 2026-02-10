@@ -165,7 +165,7 @@ def actions(request):
 
 
 @login_required(login_url='user-login')
-def main_storage(request):
+def main_page(request):
     """
     Pra não confundir, usei 'archive' para os arquivos listados no frotend
     e 'file_list' para a lista de arquivos que vão ser tratados como upload, delete, download e outros.
@@ -177,4 +177,8 @@ def main_storage(request):
         'archives': archives,
     }
 
-    return render(request, 'storage/home.html', context)
+    return render(request, 'storage/main.html', context)
+
+@login_required(login_url='user-login')
+def storage(request):
+    return render(request, 'storage/storage.html')
