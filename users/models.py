@@ -29,6 +29,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     username = models.CharField(max_length=200, unique=True)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES)
+    # main_folder = models.CharField(max_length=200, unique=True)
     is_active = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
 

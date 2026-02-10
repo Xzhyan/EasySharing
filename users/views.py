@@ -32,7 +32,7 @@ def user_login(request):
                 if user is not None:
                     login(request, user)
                     messages.success(request, "Logado com sucesso!")
-                    return redirect('storage/main')
+                    return redirect('storage')
 
                 else:
                     messages.error(request, "Problema no login ou usuário/senha incorretos!")
