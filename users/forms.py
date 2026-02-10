@@ -10,7 +10,7 @@ class LoginForm(forms.Form):
         widget=forms.TextInput(attrs={
             'class': "w-full max-w-sm bg-stone-900 hover:bg-stone-800 rounded-sm p-2 shadow-md outline-none text-sm",
             'placeholder': "Usuário",
-            "autocomplete": "username",
+            'autocomplete': "username",
         })
     )
     password = forms.CharField(

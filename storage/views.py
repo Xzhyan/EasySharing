@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_list_or_404
+from django.shortcuts import render, redirect, get_list_or_404, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.http import HttpResponse, FileResponse
@@ -17,9 +17,11 @@ User = get_user_model()
 
 # ------- Funções -------
 
-def upload_files(request):
+def upload_files(request, folder_id):
     file_list = request.FILES.getlist('upload_list')
     file_owner = request.user
+    
+    folder = get_object_or_404(Folder, id=folder_id)
 
     if not file_list:
         messages.error(request, "Nenhum arquivo foi selecionado para upload!")
@@ -32,6 +34,7 @@ def upload_files(request):
                 defaults={
                     'archive': file_obj,
                     'owner_id': file_owner,
+                    'folder_id': folder,
                     'size': file_obj.size
                 }
             )
@@ -143,14 +146,14 @@ def control(request):
 
 
 @login_required(login_url='user-login')
-def actions(request):
+def actions(request, folder_id):
     if request.method != 'POST':
         return HttpResponse(status=405)
     
     action = request.POST.get('action')
 
     if action == 'upload':
-        upload_files(request)
+        upload_files(request, folder_id)
 
     elif action == 'download':
         response = download_files(request)
@@ -161,24 +164,46 @@ def actions(request):
     elif action == 'delete':
         delete_files(request)
 
-    return redirect('main')
+    return redirect('main', folder_id=folder_id)
 
 
 @login_required(login_url='user-login')
-def main_page(request):
+def main_page(request, folder_id):
     """
     Pra não confundir, usei 'archive' para os arquivos listados no frotend
     e 'file_list' para a lista de arquivos que vão ser tratados como upload, delete, download e outros.
     """
 
-    archives = Archive.objects.all()
+    folder = get_object_or_404(Folder, id=folder_id)
+    archives = Archive.objects.filter(folder_id=folder_id)
 
     context = {
-        'archives': archives,
+        'folder': folder,
+        'archives': archives
     }
 
     return render(request, 'storage/main.html', context)
 
+
 @login_required(login_url='user-login')
 def storage(request):
-    return render(request, 'storage/storage.html')
+    if request.method == 'POST':
+        user = request.user
+        folder_name = request.POST.get('folder_name')
+        folder_path = f'{user.username}'
+
+        if Folder.objects.filter(folder_name=folder_name).exists():
+            messages.error(request, "Essa pasta já existe.")
+
+        else:
+            Folder.objects.create(
+                folder_name = folder_name,
+                folder_path = folder_path,
+                owner_id = user
+            )
+
+            messages.success(request, "Pasta criada com sucesso!")
+
+    folders = Folder.objects.all()
+
+    return render(request, 'storage/storage.html', {'folders': folders})
