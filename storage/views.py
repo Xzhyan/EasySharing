@@ -165,19 +165,16 @@ def actions(request):
 
 
 @login_required(login_url='user-login')
-def main_storage(request, folder_id):
+def main_storage(request):
     """
     Pra não confundir, usei 'archive' para os arquivos listados no frotend
     e 'file_list' para a lista de arquivos que vão ser tratados como upload, delete, download e outros.
     """
 
-    archives = Archive.objects.filter(folder_id=folder_id)
-
-    folders = Folder.objects.filter(owner_id=request.user.id)
+    archives = Archive.objects.all()
 
     context = {
         'archives': archives,
-        'folders': folders
     }
 
     return render(request, 'storage/home.html', context)
