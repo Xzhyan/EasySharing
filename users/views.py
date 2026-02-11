@@ -3,8 +3,9 @@ from django.contrib.auth import authenticate, login, get_user_model, logout
 from django.contrib import messages
 from .forms import LoginForm, RegisterForm, UserEditForm
 from django.contrib.auth.decorators import login_required
-
 from .utils.custom_decorators import check_permission
+from django.conf import settings
+import os, shutil
 
 User = get_user_model()
 
@@ -56,6 +57,16 @@ def create_new_user(request, redirect_to, msg_text):
             password = form.cleaned_data['password'],
             role = 'default'
         )
+
+        # Antes de finalizar e mostrar a mensagem, cria uma pasta raiz para o usuário
+        username = form.cleaned_data['username']
+        folder_name = username.replace(" ", "")
+        main_folder = os.path.join(settings.MEDIA_ROOT, folder_name)
+
+        # verifica existencia e cria
+        if not os.path.exists(main_folder):
+            os.makedirs(main_folder)
+
         messages.success(request, msg_text)
         return redirect(redirect_to)
     
@@ -119,7 +130,14 @@ def user_delete(request):
         user = get_object_or_404(User, pk=user_id)
         
         try:
+            # Apaga o usuário e em seguida a sua pasta
             user.delete()
+    
+            folder_name = user.username
+            main_folder = os.path.join(settings.MEDIA_ROOT, folder_name)
+            
+            if os.path.exists(main_folder):
+                shutil.rmtree(main_folder)
         
         except Exception as e:
             messages.error(request, f"Erro: {e}")

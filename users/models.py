@@ -11,6 +11,7 @@ class CustomUserManager(BaseUserManager):
         user = self.model(username=username, role=role, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
+
         return user
     
     def create_superuser(self, username, password, **extra_fields):
@@ -29,7 +30,6 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 
     username = models.CharField(max_length=200, unique=True)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES)
-    # main_folder = models.CharField(max_length=200, unique=True)
     is_active = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
 

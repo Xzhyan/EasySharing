@@ -4,13 +4,14 @@ from django.contrib.auth import get_user_model
 from django.http import HttpResponse, FileResponse
 from django.db import IntegrityError
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 
 # Models
 from .models import Archive, Folder
 
 # Usos especificos
 from io import BytesIO
-import zipfile
+import zipfile, os, shutil
 
 User = get_user_model()
 
@@ -204,6 +205,15 @@ def storage(request):
 
             messages.success(request, "Pasta criada com sucesso!")
 
-    folders = Folder.objects.all()
+    else:
+        folder_name = request.user.username
+        main_folder = os.path.join(settings.MEDIA_ROOT, folder_name)
 
-    return render(request, 'storage/storage.html', {'folders': folders})
+        folders = Folder.objects.all()
+
+    context = {
+        'main_folder': main_folder,
+        'folders': folders
+    }
+
+    return render(request, 'storage/storage.html', context)
