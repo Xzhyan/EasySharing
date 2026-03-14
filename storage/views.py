@@ -189,24 +189,47 @@ def main_page(request, folder_id):
 @login_required(login_url='user-login')
 def storage(request):
     if request.method == 'POST':
-        user = request.user
-        folder_name = request.POST.get('folder_name')
-        folder_path = f'{user.username}'
+        action = request.POST.get('action')
+        
+        if action == 'create':
+            user = request.user
+            folder_name = request.POST.get('folder_name') # folder_name, porém nome da pasta que vai ser criada.
+            folder_path = os.path.join(settings.MEDIA_ROOT, f'{user.username}/{folder_name}')
 
-        if Folder.objects.filter(folder_name=folder_name).exists():
-            messages.error(request, "Essa pasta já existe.")
+            # Ainda implementar filtro por usuário
+            # if Folder.objects.filter(folder_name=folder_name).exists():
+            #     messages.error(request, "Essa pasta já existe.")
 
-        else:
-            Folder.objects.create(
-                folder_name = folder_name,
-                folder_path = folder_path,
-                owner_id = user
-            )
+            if not os.path.exists(folder_path):
+                os.makedirs(folder_path)
 
-            messages.success(request, "Pasta criada com sucesso!")
+                Folder.objects.create(
+                    folder_name = folder_name,
+                    folder_path = folder_path,
+                    owner_id = user
+                )
+
+                messages.success(request, "Pasta criada com sucesso!")
+
+                
+            else:
+                messages.error(request, "Essa pasta já existe!")
+
+        if action == 'delete':
+            folder_id = request.POST.get('folder_id')
+
+            folder = get_object_or_404(Folder, id=folder_id)
+            path = folder.folder_path
+
+            if os.path.exists(path):
+                shutil.rmtree(path)
+                folder.delete()
+
+
+
 
     # Todas as pastas
-    folders = Folder.objects.all()
+    folders = Folder.objects.filter(owner_id=request.user)
 
     # Pasta raiz do usuário logado
     folder_name = request.user.username

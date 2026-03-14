@@ -20,7 +20,7 @@
                     class="w-full max-w-sm bg-stone-900 hover:bg-stone-800 rounded-sm p-2 shadow-md outline-none text-sm"
                     placeholder="Nome da pasta" name="folder_name" required>
 
-                <button type="submit"
+                <button type="submit" name="action"value="create"
                     class="bg-green-800 hover:bg-green-600 px-4 py-2 text-white m-auto transition font-semibold rounded-sm shadow-md cursor-pointer">
                     Criar
                 </button>
@@ -65,9 +65,24 @@
                                 <td class="px-4 py-2.5">{{ folder.folder_path }}</td>
                                 <td class="px-4 py-2.5">{{ folder.owner_id }}</td>
                                 <td class="px-4 py-2.5">{{ folder.team_id }}</td>
-                                <td>
-                                    <span>Deletar</span>
-                                    <a href="{% url 'main' folder.id %}">Acessar</a>
+                                <td class="px-4 py-2.5 flex justify-center gap-2">
+                                    <input type="number" name="folder_id" value="{{ folder.id }}" class="hidden"> <!-- apenas pra passar o id -->
+                                    <button type="submit" name="action" value="delete"
+                                        class="bg-red-800 shadow-md rounded-md hover:bg-red-600 cursor-pointer p-2 transition text-white">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round">
+                                            <path d="M3 6h18" />
+                                            <path d="M8 6V4h8v2" />
+                                            <path d="M6 6l1 14h10l1-14" />
+                                            <path d="M10 11v6" />
+                                            <path d="M14 11v6" />
+                                        </svg>
+                                    </button>
+                                    <a href="{% url 'main' folder.id %}"
+                                        class="bg-blue-800 hover:bg-blue-600 p-2 rounded-md shadow-md text-white font-semibold">
+                                        Acessar
+                                    </a>
                                 </td>
                             </tr>
                             {% endfor %}
