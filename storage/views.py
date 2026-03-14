@@ -205,11 +205,12 @@ def storage(request):
 
             messages.success(request, "Pasta criada com sucesso!")
 
-    else:
-        folder_name = request.user.username
-        main_folder = os.path.join(settings.MEDIA_ROOT, folder_name)
+    # Todas as pastas
+    folders = Folder.objects.all()
 
-        folders = Folder.objects.all()
+    # Pasta raiz do usuário logado
+    folder_name = request.user.username
+    main_folder = os.path.join(settings.MEDIA_ROOT, folder_name)
 
     context = {
         'main_folder': main_folder,
