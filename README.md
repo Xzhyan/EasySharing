@@ -114,7 +114,18 @@ python manage.py runserver
 
 ## Creditos
 
-# Xzhyan
+Xzhyan © 2025
+
+---
+
+## Atualizações
+
+O sistema ainda esta em desenvolimento e embreve novas funcões seram adicionadas.
+Gerencimente de usuários ok!
+Criação, acesso e exclusão de pastas ok!
+Upload, Download e exclusão de arquivos ok!
+
+Pode haver alguns bugs ainda e é normal já que o projeto esta em testes. Agradeço a compreensão!
 
 ---
 
