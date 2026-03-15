@@ -38,7 +38,7 @@
     <div class="md:col-span-6">
         <div class="flex flex-col bg-stone-900 p-2 rounded-b-md shadow-md">
             <span class="text-sm mt-1 mb-2">
-                Caminho atual: storage\main
+                Caminho atual: {{ folder.folder_path }}
             </span>
 
             <!-- Form das ações -->
@@ -108,10 +108,10 @@
                                     <input type="checkbox" name="selected" value="{{ archive.id }}"
                                         class="checkbox cursor-pointer scale-160 translate-y-[2px] accent-green-700">
                                 </th>
-                                <td class="px-4 py-2.5">{{ archive.file_name }}</td>
-                                <td class="px-4 py-2.5">{{ archive.owner_id }}</td>
-                                <td class="px-4 py-2.5">{{ archive.modified_at|date:"d/m/Y H:i" }}</td>
-                                <td class="px-4 py-2.5">{{ archive.size|format_size }}</td>
+                                <td class="p-4">{{ archive.file_name }}</td>
+                                <td class="p-4">{{ archive.owner_id }}</td>
+                                <td class="p-4">{{ archive.modified_at|date:"d/m/Y H:i" }}</td>
+                                <td class="p-4">{{ archive.size|format_size }}</td>
                             </tr>
                             {% endfor %}
                         </tbody>

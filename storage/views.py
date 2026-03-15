@@ -30,12 +30,12 @@ def upload_files(request, folder_id):
     
     for file_obj in file_list:
         try:
-            save_file = Archive.objects.update_or_create(
-                file_name = file_obj,
+            Archive.objects.update_or_create(
+                file_name = file_obj.name,
+                folder_id = folder,
                 defaults={
                     'archive': file_obj,
                     'owner_id': file_owner,
-                    'folder_id': folder,
                     'size': file_obj.size
                 }
             )
@@ -49,6 +49,7 @@ def upload_files(request, folder_id):
             return
 
     messages.success(request, "Arquivo(s) enviado(s) com sucesso!")
+    return redirect('main', folder_id)
 
 
 def download_files(request):
@@ -194,9 +195,8 @@ def storage(request):
         if action == 'create':
             user = request.user
             folder_name = request.POST.get('folder_name') # folder_name, porém nome da pasta que vai ser criada.
-            folder_path = os.path.join(settings.MEDIA_ROOT, f'{user.username}/{folder_name}')
+            folder_path = os.path.join(settings.MEDIA_ROOT, f'{user.username}\{folder_name}')
 
-            # Ainda implementar filtro por usuário
             # if Folder.objects.filter(folder_name=folder_name).exists():
             #     messages.error(request, "Essa pasta já existe.")
 
@@ -221,12 +221,10 @@ def storage(request):
             folder = get_object_or_404(Folder, id=folder_id)
             path = folder.folder_path
 
+            # Verifica existencia da pasta e delata.
             if os.path.exists(path):
                 shutil.rmtree(path)
                 folder.delete()
-
-
-
 
     # Todas as pastas
     folders = Folder.objects.filter(owner_id=request.user)

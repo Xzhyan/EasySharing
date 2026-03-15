@@ -14,11 +14,10 @@
         <div class="bg-stone-800 shadow-md rounded-sm mx-2">
             <form method="POST" class="flex flex-col items-center p-2 gap-2">
                 {% csrf_token %}
-                <span>Nova pasta</span>
 
                 <input type="text"
                     class="w-full max-w-sm bg-stone-900 hover:bg-stone-800 rounded-sm p-2 shadow-md outline-none text-sm"
-                    placeholder="Nome da pasta" name="folder_name" required>
+                    placeholder="Nome da nova pasta..." name="folder_name" required>
 
                 <button type="submit" name="action"value="create"
                     class="bg-green-800 hover:bg-green-600 px-4 py-2 text-white m-auto transition font-semibold rounded-sm shadow-md cursor-pointer">
@@ -41,7 +40,7 @@
                 <div class="bg-stone-800 grid grid-cols-2 rounded-md shadow-md">
                     <!-- Pesquisa -->
                     <div class="p-2">
-                        <input id="search-files" type="text" placeholder="Procurar arquivos..."
+                        <input id="search-files" type="text" placeholder="Procurar pasta..."
                             class="w-full outline-none bg-stone-900 hover:bg-stone-700 p-2 rounded-sm shadow-md transition">
                     </div>
                 </div>
@@ -51,7 +50,7 @@
                     <table class="w-full text-center shadow-md">
                         <thead class="bg-stone-950 text-xs sticky top-0 z-10 shadow-md">
                             <tr>
-                                <th class="px-4 py-2">Nome</th>
+                                <th class="px-4 py-2">Nome da pasta</th>
                                 <th class="px-4 py-2">Caminho</th>
                                 <th class="px-4 py-2">Proprietário</th>
                                 <th class="px-4 py-2">Equipe</th>
@@ -61,11 +60,11 @@
                         <tbody class="bg-stone-300 text-black">
                             {% for folder in folders %}
                             <tr class="hover:bg-stone-200 cursor-pointer transition border-2 border-gray-400 shadow-md">
-                                <td class="px-4 py-2.5">{{ folder.folder_name }}</td>
-                                <td class="px-4 py-2.5">{{ folder.folder_path }}</td>
-                                <td class="px-4 py-2.5">{{ folder.owner_id }}</td>
-                                <td class="px-4 py-2.5">{{ folder.team_id }}</td>
-                                <td class="px-4 py-2.5 flex justify-center gap-2">
+                                <td class="px-4 py-2">{{ folder.folder_name }}</td>
+                                <td class="px-4 py-2">{{ folder.folder_path }}</td>
+                                <td class="px-4 py-2">{{ folder.owner_id }}</td>
+                                <td class="px-4 py-2">{{ folder.team_id }}</td>
+                                <td class="px-4 py-2 flex justify-center gap-2">
                                     <input type="number" name="folder_id" value="{{ folder.id }}" class="hidden"> <!-- apenas pra passar o id -->
                                     <button type="submit" name="action" value="delete"
                                         class="bg-red-800 shadow-md rounded-md hover:bg-red-600 cursor-pointer p-2 transition text-white">

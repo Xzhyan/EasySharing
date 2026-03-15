@@ -1,3 +1,4 @@
+import os
 from django.db import models
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
@@ -32,8 +33,21 @@ class Folder(models.Model):
         return self.folder_name
 
 
+# Usado pelo modelo do Archive
+def archive_upload_path(instance, filename):
+    folder = instance.folder_id
+    path = os.path.join(settings.MEDIA_ROOT, folder.folder_path)
+    
+    os.makedirs(path, exist_ok=True)
+
+    return f'{folder.folder_path}\{filename}'
+
+
 class Archive(models.Model):
-    archive = models.FileField(upload_to='main/', storage=OverwriteStorage())
+    archive = models.FileField(
+            upload_to=archive_upload_path,
+            storage=OverwriteStorage()
+        )
     file_name = models.CharField(max_length=200, unique=True)
     owner_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
     folder_id = models.ForeignKey(Folder, on_delete=models.CASCADE, null=False)
