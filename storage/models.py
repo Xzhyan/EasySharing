@@ -48,7 +48,7 @@ class Archive(models.Model):
             upload_to=archive_upload_path,
             storage=OverwriteStorage()
         )
-    file_name = models.CharField(max_length=200, unique=True)
+    file_name = models.CharField(max_length=200)
     owner_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
     folder_id = models.ForeignKey(Folder, on_delete=models.CASCADE, null=False)
     size = models.FloatField()
