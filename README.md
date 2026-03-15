@@ -17,6 +17,7 @@
 - [Configuração](#configuração)
 - [Uso](#uso)
 - [Creditos](#creditos)
+- [Imagens](#imagens)
 
 ---
 
@@ -58,7 +59,7 @@ cd EasySharing
 4. Crie um ambiente virtual python
 
 ```bash
-py -m venv .venv
+python -m venv .venv
 ```
 
 5. Ative o ambiente virtual (Windows)
@@ -76,13 +77,13 @@ pip install Django
 7. Faça as migrations do sistema.
 
 ```bash
-py manage.py migrate
+python manage.py migrate
 ```
 
 8. Inicie o sistema localmente.
 
 ```bash
-py manage.py runserver
+python manage.py runserver
 ```
 
 ---
@@ -92,7 +93,7 @@ py manage.py runserver
 ### Criar um usuário Adminitrador (Super Usuário)
 
 ```bash
-py manage.py createsuperuser
+python manage.py createsuperuser
 ```
 
 ### Configurar os Hosts autorizados
@@ -107,6 +108,18 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1', '192.168.3.33']
 
 ## Uso
 
+python manage.py runserver
+
 ---
 
 ## Creditos
+
+# Xzhyan
+
+---
+
+## Imagens
+
+![Descrição da imagem](bin/imgs/easysharing2.png)
+![Descrição da imagem](bin/imgs/easysharing3.png)
+![Descrição da imagem](bin/imgs/easysharing4.png)

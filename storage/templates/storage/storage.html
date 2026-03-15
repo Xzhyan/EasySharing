@@ -62,7 +62,7 @@
                             {% for folder in folders %}
                             <tr class="hover:bg-stone-200 cursor-pointer transition border-2 border-gray-400 shadow-md">
                                 <td class="px-4 py-2">{{ folder.folder_name }}</td>
-                                <td class="px-4 py-2">{{ folder.folder_path }}</td>
+                                <td class="px-4 py-2">{{ folder.folder_path|format_current_path }}</td>
                                 <td class="px-4 py-2">{{ folder.owner_id }}</td>
                                 <td class="px-4 py-2">{{ folder.team_id }}</td>
                                 <td class="px-4 py-2 flex justify-center gap-2">
