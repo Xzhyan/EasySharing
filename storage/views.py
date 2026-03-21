@@ -9,6 +9,9 @@ from django.conf import settings
 # Models
 from .models import Archive, Folder
 
+# Forms
+from .forms import MessageForm
+
 # Usos especificos
 from io import BytesIO
 import zipfile, os, shutil
@@ -125,6 +128,18 @@ def delete_files(request):
 
 
 # ------- Views -------
+
+
+@login_required(login_url='user-login')
+def message(request):
+    form = MessageForm()
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'storage/message.html', context)
+
 
 @login_required(login_url='user-login')
 def control(request):

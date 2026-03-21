@@ -2,6 +2,7 @@ import os
 from django.db import models
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
+from users.models import Team
 
 
 # Para checar nomes de arquivos e evitar duplicatas
@@ -10,15 +11,6 @@ class OverwriteStorage(FileSystemStorage):
         if self.exists(name):
             self.delete(name)
         return name
-
-
-class Team(models.Model):
-    team_name = models.CharField(max_length=100)
-    leader_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    members = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='teams', blank=True)
-
-    def __str__(self):
-        return self.team_name
 
 
 class Folder(models.Model):

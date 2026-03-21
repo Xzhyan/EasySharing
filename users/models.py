@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 
 
@@ -46,6 +47,15 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         return self.is_admin
 
 
+class Team(models.Model):
+    team_name = models.CharField(max_length=100)
+    leader_id = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    members = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='teams', blank=True)
+
+    def __str__(self):
+        return self.team_name
+
+
 class Notification(models.Model):
     NOTIFICATION_TYPES = [
         ('message', "Menssagem"),
@@ -58,15 +68,7 @@ class Notification(models.Model):
     sent_by = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, related_name='notifications_sent')
     sent_to = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, default='admin', related_name='notifications_received')
     msg_text = models.TextField(max_length=200)
+    sent_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.notification_type
-
-
-# class Team(models.Model):
-#     team_name = models.CharField(max_length=200)
-#     leader = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=False)
-#     members = models.ManyToManyField(CustomUser, related_name='teams', blank=True)
-
-#     def __str__(self):
-#         return self.team_name

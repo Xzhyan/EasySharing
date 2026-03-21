@@ -6,4 +6,5 @@ urlpatterns = [
     path('main/<int:folder_id>', views.main_page, name='main'),
     path('action/<int:folder_id>', views.actions, name='actions'),
     path('control/', views.control, name='control'),
+    path('message/', views.message, name='message')
 ]
