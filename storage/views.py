@@ -8,6 +8,7 @@ from django.conf import settings
 
 # Models
 from .models import Archive, Folder
+from users.models import Notification
 
 # Forms
 from .forms import MessageForm
@@ -132,10 +133,37 @@ def delete_files(request):
 
 @login_required(login_url='user-login')
 def message(request):
+    if request.method == 'POST':
+        form_type = request.POST.get('form_type')
+        
+        if form_type == 'send_msg':
+            form = MessageForm(request.POST)
+
+            if form.is_valid():
+                msg = form.save(commit=False)
+                msg.sent_by = request.user
+                msg.save()
+
+                messages.success(request, "Mensagem enviada com sucesso!")
+                return redirect('control')
+
+            else:
+                for field, errors in form.errors.items():
+                    for error in errors:
+                        messages.error(request, error)
+        
+        elif form_type == 'delete':
+            msg_id = request.POST.get('msg_id')
+            msg = get_object_or_404(Notification, id=msg_id)
+            msg.delete()
+            
+            messages.success(request, "Mensagem deletada com sucesso!")
+            return redirect('control')
+
     form = MessageForm()
 
     context = {
-        'form': form,
+        'form': form
     }
 
     return render(request, 'storage/message.html', context)
@@ -144,6 +172,7 @@ def message(request):
 @login_required(login_url='user-login')
 def control(request):
     users = User.objects.all()
+    inbox_msgs = Notification.objects.filter(sent_to=request.user)
 
     actives = []
     inactives = []
@@ -156,7 +185,8 @@ def control(request):
 
     context = {
         'actives': actives,
-        'inactives': inactives
+        'inactives': inactives,
+        'inbox_msgs': inbox_msgs
     }
     
     return render(request, 'storage/control.html', context)
