@@ -263,7 +263,7 @@ def storage(request):
                 )
 
                 messages.success(request, "Pasta criada com sucesso!")
-
+ 
                 
             else:
                 messages.error(request, "Essa pasta já existe!")
@@ -272,11 +272,16 @@ def storage(request):
             folder_id = request.POST.get('folder_id')
 
             folder = get_object_or_404(Folder, id=folder_id)
-            path = folder.folder_path
+            relative_path = folder.folder_path
+
+            absolute_path = os.path.join(
+                settings.MEDIA_ROOT,
+                relative_path
+            )
 
             # Verifica existencia da pasta e delata.
-            if os.path.exists(path):
-                shutil.rmtree(path)
+            if os.path.exists(absolute_path):
+                shutil.rmtree(absolute_path)
                 folder.delete()
 
     # Todas as pastas
