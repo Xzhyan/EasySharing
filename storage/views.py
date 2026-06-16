@@ -239,18 +239,26 @@ def storage(request):
         
         if action == 'create':
             user = request.user
+            
             folder_name = request.POST.get('folder_name') # folder_name, porém nome da pasta que vai ser criada.
-            folder_path = os.path.join(settings.MEDIA_ROOT, f'{user.username}\{folder_name}')
+            folder_path = os.path.join(settings.MEDIA_ROOT, f'{user.username}/{folder_name}')
 
-            # if Folder.objects.filter(folder_name=folder_name).exists():
-            #     messages.error(request, "Essa pasta já existe.")
+            relative_path = os.path.join(
+                user.username,
+                folder_name
+            )
 
-            if not os.path.exists(folder_path):
-                os.makedirs(folder_path)
+            absolute_path = os.path.join(
+                settings.MEDIA_ROOT,
+                relative_path
+            )
+
+            if not os.path.exists(absolute_path):
+                os.makedirs(absolute_path)
 
                 Folder.objects.create(
                     folder_name = folder_name,
-                    folder_path = folder_path,
+                    folder_path = relative_path,
                     owner_id = user
                 )
 

@@ -27,12 +27,10 @@ class Folder(models.Model):
 
 # Usado pelo modelo do Archive
 def archive_upload_path(instance, filename):
-    folder = instance.folder_id
-    path = os.path.join(settings.MEDIA_ROOT, folder.folder_path)
-    
-    os.makedirs(path, exist_ok=True)
-
-    return f'{folder.folder_path}\{filename}'
+    return os.path.join(
+        instance.folder_id.folder_path,
+        filename
+    )
 
 
 class Archive(models.Model):
